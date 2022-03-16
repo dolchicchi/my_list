@@ -1,0 +1,127 @@
+@font-face{
+  font-family: "HuiFontP29";
+  src: url('../fonts/HuiFontP29.ttf');
+}
+
+body{
+  background-image: url(backimage.jpeg);
+}
+
+/* ヘッダー */
+
+header {
+  padding: 30px 4% 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.header-title {
+  margin: 0; padding: 0;
+  font-size: 20px;
+}
+
+.title-logo {	
+  text-decoration: none;
+  color: #908a60;
+}
+
+.header-nav {
+  margin: 0 0 0 auto;
+}
+
+.header-btns {
+  list-style: none;
+  margin: 0;
+  display: flex;
+}
+
+.hedder-btn {
+  margin: 0 0 0 15px;
+  font-size: 14px;
+}
+
+.hedder-btn a{
+  text-decoration: none;
+  color: #908a60;
+}
+
+/* メインコンテンツ */
+
+main{
+  max-width: 1024px;
+  margin: 64px auto;
+}
+
+.main-content{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.postit {
+  position: relative;
+  margin: 3em 5px 1em 5px;
+  background: #fff6e6;
+  box-shadow: 0 2px 3px rgba(0,0,0,.22);
+  padding: 22px 8px 22px 8px;
+  background-color: #fff6e6;
+  background-image:
+  linear-gradient(90deg, rgba(237, 119, 128, 0) 0%, rgba(237, 119, 128, 0) 50%, #fff6e6 0%, #fff6e6 100%), linear-gradient(180deg, rgba(237, 119, 128, 0) 0%, rgba(237, 119, 128, 0) 95%, #908a60 100%);
+  background-size: 8px 100%,100% 2em;
+  line-height: 2;
+  color: #908a60;
+  font-weight: bold;
+  width: 25%;
+}
+.postit-title {
+  background: #fff6e6;
+  font-size: 1.2em;
+  padding: 7px 0 0 16px;
+  margin: -16px -8px 16px -8px;
+  color: #908a60;
+  font-weight:bold;
+}
+.postit:after {
+  position: absolute;
+  content: "";
+  top: 20px;
+  width: 30%;
+  height: 35px;
+  opacity: 0.4;
+  margin: -35px auto 10px 35%;
+  background: #ffffff;
+  transform: rotate(-2deg);
+  left: 10px;
+  right: 10px;
+}
+.postit p {
+  margin: 0 0 0 5px;
+  padding: 0;
+}
+
+footer{
+  height: 50px;
+  background-color: darkgray;
+}
+
+/* タブレット対応 */
+@media (max-width: 1024px) {
+
+  .postit{
+    width: 33vw;
+  }
+}
+
+ /* スマホ表示 */
+@media (max-width: 599px) {
+
+
+  .postit{
+    width: 60%;
+  }
+}
