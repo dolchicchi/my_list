@@ -48,9 +48,9 @@
 
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
-| ingredient_1   | string     |                                |
-| amount_1       | integer    |                                |
-| unit_id_1      | integer    |                                |
+| ingredient     | string     |                                |
+| amount         | integer    |                                |
+| unit_id        | integer    |                                |
 | recipe         | references | null: false, foreign_key: true |
 
 
