@@ -117,7 +117,7 @@ main{
 .user-title {
   background: #fff6e6;
   font-size: 25px;
-  padding: 7px 0 0 16px;
+  padding-top: 7px;
   margin: -16px -8px 16px -8px;
   color: #908a60;
   font-weight:bold;
@@ -136,9 +136,6 @@ main{
   background: #fff6e6;
   padding: 22px 8px 22px 8px;
   background-color: #fff6e6;
-  /* background-image: */
-  /* linear-gradient(90deg, rgba(237, 119, 128, 0) 0%, rgba(237, 119, 128, 0) 50%, #fff6e6 0%, #fff6e6 100%), linear-gradient(180deg, rgba(237, 119, 128, 0) 0%, rgba(237, 119, 128, 0) 95%, #908a60 100%); */
-  /* background-size: 8px 100%,100% 2em; */
   line-height: 2;
   color: #908a60;
   font-weight: bold;
@@ -168,7 +165,7 @@ main{
 }
 
 .field {
-  margin: 0 0 10px 50px;
+  margin: 0 0 10px 80px;
 }
 
 .actions {
@@ -214,6 +211,25 @@ main{
   justify-content: space-around;
 }
 
+.btn {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.btn input {
+  border: none;
+  border: 1px solid #908a60;
+  background-color: #fff6e6;
+  color: #908a60;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 4px;
+  margin: 0 40px;
+}
+
+.add-btn {
+  margin-right: 10px;
+}
 
 /* フッター */
 
@@ -228,6 +244,19 @@ footer {
   .postit {
     width: 33vw;
   }
+
+  .ingredient {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 20px 0;
+  }
+
+  .ingredient div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
  /* スマホ表示 */
@@ -235,6 +264,6 @@ footer {
 
 
   .postit {
-    width: 60%;
+    width: 40%;
   }
 }
