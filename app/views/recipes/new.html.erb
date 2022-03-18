@@ -2,7 +2,7 @@
   <div class="user-form">
     <div class="user-postit">
       <div class="user-title">レシピ登録</div>
-      <%= form_with model: @recipe, id: 'new_user', class: 'new_user', local: true do |f| %>
+      <%= form_with model: @recipe_ingredient, url: recipes_path ,id: 'new_user', class: 'new_user', local: true do |f| %>
       <div class="field">
         <%= f.label :title, "タイトル" %>
         <%= f.text_field :title, autofocus: true %>
@@ -10,7 +10,17 @@
 
       <div class="field">
         <%= f.label :source, "参考URL(任意)" %>
-        <%= f.email_field :source %>
+        <%= f.text_field :source %>
+      </div>
+
+      <div class="field">
+        <%= f.label :string, "材料" %>
+        <%= f.text_field :string %>
+      </div>
+
+      <div class="field">
+        <%= f.label :amount, "分量" %>
+        <%= f.text_field :amount %>
       </div>
 
       <div class="actions">
