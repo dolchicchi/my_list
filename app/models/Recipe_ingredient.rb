@@ -13,12 +13,16 @@ class RecipeIngredient
       user_id: user_id
     )
 
-    Ingredient.create(
-      name: name,
-      amount: amount,
-      unit_id: unit_id,
-      recipe_id: recipe.id
-    )
+    ingredients = [name, amount, unit_id].transpose
+    
+    ingredients.each do |ingredient|
+      header = ["name", "amount", "unit_id"]
+      ingredient_parameter = Hash[header.zip(ingredient)]
+      ingredient_parameter["recipe_id"] = recipe.id
+      Ingredient.create(ingredient_parameter)
+    end
+
+
+
   end
 end
-
