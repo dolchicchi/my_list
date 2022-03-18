@@ -1,6 +1,6 @@
 class RecipeIngredient
   include ActiveModel::Model
-  attr_accessor :title, :source, :user_id, :string, :amount, :unit_id, :recipe
+  attr_accessor :title, :source, :user_id, :name, :amount, :unit_id, :recipe
 
   with_options presence: true do
     validates :title, :user_id
@@ -14,7 +14,7 @@ class RecipeIngredient
     )
 
     Ingredient.create(
-      string: string,
+      name: name,
       amount: amount,
       unit_id: unit_id,
       recipe_id: recipe.id
