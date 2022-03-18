@@ -13,15 +13,23 @@
         <%= f.text_field :source %>
       </div>
 
-      <div class="field">
-        <%= f.label :name, "材料名" %>
-        <%= f.text_field :name %>
-      </div>
+      <div class="ingredient">
+        <div class="ingredient-name">
+          <%= f.label :name, "材料名" %>
+          <%= f.text_field :name %>
+        </div>
 
-      <div class="field">
-        <%= f.label :amount, "分量" %>
-        <%= f.text_field :amount %>
+        <div class="ingredient-amount">
+          <%= f.label :amount, "分量" %>
+          <%= f.text_field :amount %>
+        </div>
+
+        <div class="ingredient-unit">
+          <%= f.label :unit_id, "単位" %>
+          <%= f.collection_select(:unit_id, Unit.all, :id, :name, {}, {}) %>
+        </div>
       </div>
+      
 
       <div class="actions">
         <%= f.submit "登録" %>
