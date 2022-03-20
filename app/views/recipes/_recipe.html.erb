@@ -3,7 +3,7 @@
         <span class="fa fa-book"></span><%= recipe.title %>
       </div>
       <% if recipe.source != "" %>
-        <p><%= link_to '参考URL', recipe.source %></p>
+        <p><%= link_to '参考URL', recipe.source, target: :_blank, rel: "noopener noreferrer" %></p>
       <% end %>
       <p>メイン食材</p>
       <% recipe.ingredients.each do |ingredient|%>
