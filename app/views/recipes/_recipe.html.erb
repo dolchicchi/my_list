@@ -1,0 +1,10 @@
+    <div class="postit">
+      <div class="postit-title"><span class="fa fa-book"></span><%= recipe.title %></div>
+      <% if recipe.source != "" %>
+        <p><%= link_to '参考URL', recipe.source %></p>
+      <% end %>
+      <p>メイン食材</p>
+      <% recipe.ingredients.each do |ingredient|%>
+        <p><%= "　#{ingredient.name}･･･#{ingredient.amount}#{ingredient.unit.name}" %></p>
+      <% end %>
+    </div>

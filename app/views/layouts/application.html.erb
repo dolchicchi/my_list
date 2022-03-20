@@ -8,13 +8,14 @@
     <%= stylesheet_link_tag 'application', media: 'all'%>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
 
   <body>
     <header>
       <h1 class="header-title">
         <% if user_signed_in? %>
-          <%= current_user.nickname %>
+          <%= link_to current_user.nickname, recipes_path %>
         <% end %>
         <a href="/" class="title-logo">My Lists</a>
       </h1>
