@@ -257,6 +257,14 @@ footer {
     flex-direction: column;
     align-items: center;
   }
+
+  .field {
+    margin: 0 0 10px 20px;
+  }
+
+  .field input {
+    width: 90%;
+  }
 }
 
  /* スマホ表示 */
@@ -264,6 +272,15 @@ footer {
 
 
   .postit {
-    width: 40%;
+    width: 80%;
   }
+
+  .field input {
+    width: 90%;
+  }
+
+  .field {
+    margin: 0 0 10px 20px;
+  }
+
 }
