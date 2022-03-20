@@ -1,10 +1,17 @@
     <div class="postit">
-      <div class="postit-title"><span class="fa fa-book"></span><%= recipe.title %></div>
+      <div class="postit-title">
+        <span class="fa fa-book"></span><%= recipe.title %>
+      </div>
       <% if recipe.source != "" %>
         <p><%= link_to '参考URL', recipe.source %></p>
       <% end %>
       <p>メイン食材</p>
       <% recipe.ingredients.each do |ingredient|%>
-        <p><%= "　#{ingredient.name}･･･#{ingredient.amount}#{ingredient.unit.name}" %></p>
+        <p><%= "・#{ingredient.name}･･･#{ingredient.amount}#{ingredient.unit.name}" %></p>
       <% end %>
+      <div class="recipe-btn">
+        <p><%= link_to 'タイトルの編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
+        <p><%= link_to '材料の編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
+        <p><%= link_to 'レシピの削除', recipe_path(recipe), {method: :delete, class: "recipe-destroy"} %></p>
+      </div>
     </div>
