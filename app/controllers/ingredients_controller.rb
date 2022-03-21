@@ -48,6 +48,9 @@ class IngredientsController < ApplicationController
     ingredients_params = params[:recipe_ingredient]
     names = ingredients_params[:name]
     amounts = ingredients_params[:amount]
+    amounts.each do |amount|
+      amount.tr!("０-９", "0-9")
+    end
     unit_ids = ingredients_params[:unit_id]
     ingredients = [names, amounts, unit_ids].transpose
   end
