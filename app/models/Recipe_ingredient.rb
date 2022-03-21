@@ -3,7 +3,8 @@ class RecipeIngredient
   attr_accessor :title, :source, :user_id, :name, :amount, :unit_id, :recipe
 
   with_options presence: true do
-    validates :title, :user_id
+    validates :title
+    validates :user_id
   end
 
   def save
