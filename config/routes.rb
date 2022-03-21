@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :recipes, except: :show do
     resources :ingredients, only: [:new, :create, :edit, :update, :destroy]
   end
+  resources :lists, only: [:new, :index]
 end
