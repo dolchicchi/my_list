@@ -14,9 +14,6 @@
   <body>
     <header>
       <h1 class="header-title">
-        <% if user_signed_in? %>
-          <%= link_to current_user.nickname, recipes_path %>
-        <% end %>
         <a href="/" class="title-logo">My Lists</a>
       </h1>
       <nav class="header-nav">
