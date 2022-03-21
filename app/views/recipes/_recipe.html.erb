@@ -7,12 +7,14 @@
       <% end %>
       <p>メイン食材</p>
       <% recipe.ingredients.each do |ingredient|%>
-        <p><%= "・#{ingredient.name}･･･#{ingredient.amount}#{ingredient.unit.name}" %></p>
+        <p><%= "・#{ingredient.name}･･･#{ingredient.amount}#{ingredient.unit.name}" %>
+           <%= link_to '修正', edit_recipe_ingredient_path(recipe, ingredient) %>
+        </p>
       <% end %>
       <p class="line">〜・〜・〜・〜・</p>
       <div class="recipe-btn">
         <p><%= link_to 'タイトルの編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
-        <p><%= link_to '材料の編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
+        <p><%= link_to '材料の追加', new_recipe_ingredient_path(recipe), {class: "recipe-edit"} %></p>
         <p><%= link_to 'レシピの削除', recipe_path(recipe), {method: :delete, class: "recipe-destroy"} %></p>
       </div>
     </div>
