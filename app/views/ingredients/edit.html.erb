@@ -21,9 +21,9 @@
         </div>
       </div>
 
-      <div class="actions" id="actions">
+      <div class="ingredient-actions" id="actions">
         <%= f.submit "追加" %> 
-        <%= link_to "削除", recipe_ingredient_path(@recipe, @ingredient), method: :delete %>
+        <%= link_to "削除", recipe_ingredient_path(@recipe, @ingredient), {method: :delete, class: "ingredient-delete-btn"} %>
       </div>
       <% end %>
     </div>

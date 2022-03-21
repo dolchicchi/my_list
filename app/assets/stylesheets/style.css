@@ -246,6 +246,36 @@ main{
   text-align: center;
 }
 
+/* 食材修正ページ */
+
+.ingredient-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.ingredient-actions input {
+  background-color: #908a60;
+  color: #fff6e6;
+  border: none;
+  height: 50px;
+  width: 80px;
+  border-radius: 4px;
+}
+
+.ingredient-delete-btn {
+  display: inline-block;
+  background-color: #908a60;
+  color: #fff6e6;
+  border: none;
+  height: 50px;
+  width: 80px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 50px;
+}
+
 /* フッター */
 
 footer {
