@@ -1,5 +1,5 @@
 class IngredientsController < ApplicationController
-  before_action :ingredient_set, only: [:edit, :update]
+  before_action :ingredient_set, only: [:edit, :update, :destroy]
   before_action :recipe_set, only: [:new, :edit]
 
   def new
@@ -20,7 +20,6 @@ class IngredientsController < ApplicationController
   end
 
   def edit
-    @ingredient = Ingredient.find(params[:id])
   end
 
   def update
@@ -29,6 +28,11 @@ class IngredientsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @ingredient.destroy
+    redirect_to recipes_path
   end
 
   private
