@@ -9,6 +9,7 @@
       <% recipe.ingredients.each do |ingredient|%>
         <p><%= "・#{ingredient.name}･･･#{ingredient.amount}#{ingredient.unit.name}" %></p>
       <% end %>
+      <p class="line">〜・〜・〜・〜・</p>
       <div class="recipe-btn">
         <p><%= link_to 'タイトルの編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
         <p><%= link_to '材料の編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
