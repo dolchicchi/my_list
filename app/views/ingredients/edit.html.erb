@@ -1,0 +1,31 @@
+<div class="user-main">
+  <div class="user-form">
+    <div class="user-postit" id="user-postit">
+      <div class="user-title">レシピ登録</div>
+      <%= form_with model: @ingredient, url: recipe_ingredient_path(@recipe, @ingredient) ,id: 'new_user', class: 'new_user', local: true do |f| %>
+
+      <div class="ingredient">
+        <div class="ingredient-name">
+          <%= f.label :name, "材料名" %>
+          <%= f.text_field :name %>
+        </div>
+
+        <div class="ingredient-amount">
+          <%= f.label :amount, "分量" %>
+          <%= f.text_field :amount %>
+        </div>
+
+        <div class="ingredient-unit">
+          <%= f.label :unit_id, "単位" %>
+          <%= f.collection_select(:unit_id, Unit.all, :id, :name, {}, {}) %>
+        </div>
+      </div>
+
+      <div class="ingredient-actions" id="actions">
+        <%= f.submit "追加" %> 
+        <%= link_to "削除", recipe_ingredient_path(@recipe, @ingredient), {method: :delete, class: "ingredient-delete-btn"} %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

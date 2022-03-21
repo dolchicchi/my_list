@@ -19,7 +19,7 @@
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | title            | string     | null: false                    |
-| url              | text       |                                |
+| source           | text       |                                |
 | user             | references | null: false, foreign_key: true |
 
 
