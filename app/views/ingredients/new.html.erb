@@ -1,0 +1,35 @@
+<div class="user-main">
+  <div class="user-form">
+    <div class="user-postit" id="user-postit">
+      <div class="user-title">食材追加</div>
+      <%= form_with model: [@recipe, @ingredient], id: 'new_user', class: 'new_user', local: true do |f| %>
+
+      <div class="btn" id="btn">
+        <input type="button" value="追加" id="add-btn" class="add-btn"> 
+        <input type="button" value="削除" id="delete-btn" class="delete-btn"> 
+      </div>
+      
+      <div class="ingredient">
+        <div class="ingredient-name">
+          <%= f.label :name, "材料名" %>
+          <%= f.text_field :name, name:"[recipe_ingredient][name][]" %>
+        </div>
+
+        <div class="ingredient-amount">
+          <%= f.label :amount, "分量" %>
+          <%= f.text_field :amount, name:"[recipe_ingredient][amount][]" %>
+        </div>
+
+        <div class="ingredient-unit">
+          <%= f.label :unit_id, "単位" %>
+          <%= f.collection_select(:unit_id, Unit.all, :id, :name, {}, {name:"[recipe_ingredient][unit_id][]"}) %>
+        </div>
+      </div>
+
+      <div class="actions" id="actions">
+        <%= f.submit "登録" %> 
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
