@@ -1,0 +1,21 @@
+
+<main>
+  <div class="top-wrapper">
+  </div>
+  <div class="main-content">
+    <% 7.times do |i| %>
+    <div class="postit">
+      <div class="postit-title"><%= "#{(@today+i).month}/#{(@today+i).day}" %></div>
+      <p><%= "ホイコーロー" %></p>
+      <div class="select-btns">
+        <%= link_to "選択", "#" %>
+        <%= link_to "おまかせ", "#" %>
+        <%= link_to "削除", "#" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="bottom-wrapper">
+  </div>
+</main>
+
