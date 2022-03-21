@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  before_action :set_recipe, only: [:edit, :update, :destroy]
 
   def new
     @recipe_ingredient = RecipeIngredient.new
@@ -20,16 +21,19 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
   end
 
-  def update
-    @recipe = Recipe.find(params[:id])
+  def update 
     if @recipe.update(recipe_params)
       redirect_to recipes_path
     else
       render :edit
     end
+  end
+
+  def destroy
+    @recipe.destroy
+    redirect_to recipes_path
   end
 
   private
@@ -42,6 +46,10 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:title, :source).merge(user_id: current_user.id)
+  end
+
+  def set_recipe
+    @recipe = Recipe.find(params[:id])
   end
 
 end
