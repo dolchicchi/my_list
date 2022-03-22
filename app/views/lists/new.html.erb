@@ -15,7 +15,7 @@
         <p class="line"></p>
         <% @lists.each do |list| %>
           <% if list.date == @today + i %>
-            <p>・<%= list.recipe.title %></p>
+            <div>・<%= list.recipe.title %>・・・<%= link_to "削除", list_path(list), method: :delete %></div>
           <%end%>
         <% end %>
     </div>

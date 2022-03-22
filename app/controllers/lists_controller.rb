@@ -21,6 +21,12 @@ class ListsController < ApplicationController
     end
   end
 
+  def destroy
+    list = List.find(params[:id])
+    list.destroy
+    redirect_to new_list_path
+  end
+
   private
   def list_params
     params.require(:list).permit(:recipe_id).merge(user_id: current_user.id, date: params[:date])
