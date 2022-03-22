@@ -7,7 +7,6 @@ class RecipesController < ApplicationController
 
   def create
     @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
-    
     if @recipe_ingredient.valid?
       @recipe_ingredient.save
       redirect_to recipes_path
