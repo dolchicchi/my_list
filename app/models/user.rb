@@ -6,5 +6,6 @@ class User < ApplicationRecord
 
    validates :nickname, presence: true
    
-   has_many :recipes
+   has_many :recipes, dependent: :destroy
+   has_many :lists, dependent: :destroy
 end
