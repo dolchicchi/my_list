@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :lists, only: [:new, :index, :create, :destroy] do
     collection do
       get "select"
-      get "random"
+      post "random"
     end
   end
 end
