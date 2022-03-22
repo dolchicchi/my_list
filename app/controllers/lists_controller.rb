@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_lists, only: [:new, :index]
+  before_action :set_lists, only: [:new, :index, :all_destroy]
 
   def index
   end
@@ -30,6 +30,25 @@ class ListsController < ApplicationController
     recipe = random_recipe
     list_date = {recipe_id: recipe.id, user_id: current_user.id, date: params[:date]}
     random_save(list_date)
+    redirect_to new_list_path
+  end
+
+  def allrandom
+    today = Date.today
+    7.times do |i|
+    recipe = random_recipe
+    list_date = {recipe_id: recipe.id, user_id: current_user.id, date: (today + i)}
+    random_save(list_date)
+    end
+    redirect_to new_list_path
+  end
+
+  def all_destroy
+    if @lists.destroy_all
+      redirect_to new_list_path
+    else
+      render :new
+    end
   end
 
   private
@@ -50,9 +69,7 @@ class ListsController < ApplicationController
 
   def random_save(list_date)
     list = List.new(list_date)
-    if list.save
-      redirect_to new_list_path
-    else
+    unless list.save
       render :new
     end
   end

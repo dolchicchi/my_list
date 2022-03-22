@@ -1,8 +1,8 @@
 
 <main>
   <div class="all-randomp-wrapper">
-     <%= link_to "おまかせ", "#", {class: "all-random btn"} %>
-     <%= button_to "おまかせ", root_path, {class: "all-random btn"} %>
+     <%= link_to "一週間おまかせ", allrandom_lists_path, {method: :post, class: "all-random"} %>
+     <%= link_to "全て削除", all_destroy_lists_path, {method: :delete, class: "all-random"} %>
   </div>
   <div class="main-content">
     <% 7.times do |i| %>
