@@ -1,14 +1,16 @@
 class ListsController < ApplicationController
+  before_action :set_lists, only: [:new, :index]
+
   def index
   end
 
   def new
-    @today = Date.today
+   
   end
 
   def select
     @list = List.new
-    @recipe_lists = Recipe.all
+    @recipe_lists = current_user.recipes
     @date = params[:date]
   end
 
@@ -22,6 +24,11 @@ class ListsController < ApplicationController
   private
   def list_params
     params.require(:list).permit(:recipe_id).merge(user_id: current_user.id, date: params[:date])
+  end
+
+  def set_lists
+    @today = Date.today
+    @lists = current_user.lists.where(date: @today..@today + 7)
   end
 
 end
