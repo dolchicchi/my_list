@@ -33,7 +33,7 @@ class ListsController < ApplicationController
     redirect_to new_list_path
   end
 
-  def allrandom
+  def all_random
     today = Date.today
     7.times do |i|
     recipe = random_recipe

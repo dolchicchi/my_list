@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     collection do
       get "select"
       post "random"
-      post "allrandom"
+      post "all_random"
       delete "all_destroy"
     end
   end
