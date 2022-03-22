@@ -8,11 +8,7 @@ class RecipeIngredient
   end
 
   def save
-    recipe  = Recipe.create(
-      title: title,
-      source: source,
-      user_id: user_id
-    )
+    recipe  = Recipe.create(title: title, source: source, user_id: user_id)
 
     ingredients = [name, amount, unit_id].transpose
     
@@ -22,8 +18,6 @@ class RecipeIngredient
       ingredient_parameter["recipe_id"] = recipe.id
       Ingredient.create(ingredient_parameter)
     end
-
-
 
   end
 end
