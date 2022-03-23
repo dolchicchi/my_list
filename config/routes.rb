@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   end
   resources :lists, only: [:new, :index, :create, :destroy] do
     collection do
-      get "select"
       post "random"
       post "all_random"
       delete "all_destroy"

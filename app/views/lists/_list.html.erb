@@ -1,0 +1,8 @@
+<div class="postit">
+  <div class="postit-title"><%= "#{list.date.month}/#{list.date.day}" %></div>
+  <p>・<%= list.recipe.title %></p>
+  <% if list.recipe.source != "" %>
+    <p><%= "URL" %></p>
+  <% end %>
+  <p><%#= list.recipe.ingredient.name %></p>
+</div>

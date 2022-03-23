@@ -5,9 +5,6 @@ class ListsController < ApplicationController
   end
 
   def new
-  end
-
-  def select
     @list = List.new
     @recipe_lists = current_user.recipes
     @date = params[:date]
@@ -16,21 +13,21 @@ class ListsController < ApplicationController
   def create
     list = List.new(list_params)
     if list.save
-      redirect_to new_list_path
+      redirect_to lists_path
     end
   end
 
   def destroy
     list = List.find(params[:id])
     list.destroy
-    redirect_to new_list_path
+    redirect_to lists_path
   end
 
   def random
     recipe = random_recipe
     list_date = {recipe_id: recipe.id, user_id: current_user.id, date: params[:date]}
     random_save(list_date)
-    redirect_to new_list_path
+    redirect_to lists_path
   end
 
   def all_random
@@ -40,12 +37,12 @@ class ListsController < ApplicationController
     list_date = {recipe_id: recipe.id, user_id: current_user.id, date: (today + i)}
     random_save(list_date)
     end
-    redirect_to new_list_path
+    redirect_to lists_path
   end
 
   def all_destroy
     if @lists.destroy_all
-      redirect_to new_list_path
+      redirect_to lists_path
     else
       render :new
     end
@@ -58,7 +55,7 @@ class ListsController < ApplicationController
 
   def set_lists
     @today = Date.today
-    @lists = current_user.lists.where(date: @today..@today + 7)
+    @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
   end
 
   def random_recipe
@@ -70,7 +67,7 @@ class ListsController < ApplicationController
   def random_save(list_date)
     list = List.new(list_date)
     unless list.save
-      render :new
+      render :index
     end
   end
 end
