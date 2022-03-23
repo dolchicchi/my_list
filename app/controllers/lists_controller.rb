@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_lists, only: [:new, :index, :all_destroy]
-
+  before_action :check_recipe, only: [:random, :all_random]
   def index
   end
 
@@ -68,6 +68,12 @@ class ListsController < ApplicationController
     list = List.new(list_date)
     unless list.save
       render :index
+    end
+  end
+
+  def check_recipe
+    if current_user.recipes.empty?
+      redirect_to root_path
     end
   end
 end
