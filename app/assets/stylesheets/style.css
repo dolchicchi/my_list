@@ -321,6 +321,11 @@ main{
   max-width: 300px;
 }
 
+.all-random:hover {
+  transition: 0.3s;
+  opacity: 0.85;
+}
+
 /* フッター */
 
 footer {
