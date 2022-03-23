@@ -1,6 +1,13 @@
 <main>
+  <div class="search-content">
+    <%= search_form_for @q do |f| %>
+      <%= f.search_field :title_or_ingredients_name_cont, {placeholder: "レシピ名か食材名を入力して下さい", class: "search-text"} %>
+
+      <%= f.submit "検索", class: "search-btn" %>
+    <% end %>
+  </div>
   <div class="main-content">
-    <%= render partial: "recipe", collection: @recipes  %>
+      <%= render partial: "recipe", collection: @search_recipes %>
   </div>
   <div class="bottom-wrapper">
   </div>

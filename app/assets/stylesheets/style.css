@@ -109,8 +109,8 @@ main{
 
 .user-main{
   padding-top: 64px;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
   min-height: 640px;
 }
 
@@ -248,6 +248,36 @@ main{
 
 .line {
   text-align: center;
+}
+
+.search-content {
+  padding-top: 60px;
+  margin: 0 auto 30px auto;
+  max-width: 1024px;
+  text-align: center;
+}
+
+.search-content input {
+  height: 50px;
+  border-radius: 4px;
+  text-align: center;
+  border: none;
+}
+
+.search-text {
+  width: 60vw;
+  min-width: 480px;
+  max-width: 540px;
+}
+
+.search-text:focus {
+  outline: none;
+}
+
+.search-btn {
+  width: 60px;
+  background-color: #908a60;
+  color: #fff6e6;
 }
 
 /* 食材修正ページ */

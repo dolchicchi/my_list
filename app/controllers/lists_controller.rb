@@ -1,6 +1,8 @@
 class ListsController < ApplicationController
   before_action :set_lists, only: [:new, :index, :all_destroy]
   before_action :check_recipe, only: [:random, :all_random]
+  before_action :set_search, only: :new
+
   def index
   end
 
@@ -75,5 +77,11 @@ class ListsController < ApplicationController
     if current_user.recipes.empty?
       redirect_to root_path
     end
+  end
+  
+  def set_search
+    @recipes = current_user.recipes.order(updated_at: :desc)
+    @q = @recipes.ransack(params[:q])
+    @search_recipes = @q.result(distinct: true)
   end
 end
