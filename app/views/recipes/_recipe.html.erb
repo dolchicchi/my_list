@@ -13,14 +13,16 @@
       <% end %>
       <p>メイン食材</p>
       <% recipe.ingredients.each do |ingredient|%>
-        
-        
-          <% if (ingredient.amount % 1 == 0) %>
-           <p>・<%= "#{ingredient.name}…#{ingredient.amount.to_i}#{ingredient.unit.name}" %><%= link_to '修正', edit_recipe_ingredient_path(recipe, ingredient) %></p>
-          <% else %>
-            <p>・<%= "#{ingredient.name}…#{ingredient.amount}#{ingredient.unit.name}" %><%= link_to '修正', edit_recipe_ingredient_path(recipe, ingredient) %></p>
-          <% end %>
-           
-        
+        <% if (ingredient.amount % 1 == 0) %>
+          <p>
+            ・<%= "#{ingredient.name}…#{ingredient.amount.to_i}#{ingredient.unit.name}" %>
+            <%= link_to '修正', edit_recipe_ingredient_path(recipe, ingredient) %>
+          </p>
+        <% else %>
+          <p>
+            ・<%= "#{ingredient.name}…#{ingredient.amount}#{ingredient.unit.name}" %>
+            <%= link_to '修正', edit_recipe_ingredient_path(recipe, ingredient) %>
+          </p>
+        <% end %>
       <% end %>
     </div>
