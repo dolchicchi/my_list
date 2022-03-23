@@ -57,7 +57,12 @@ class ListsController < ApplicationController
 
   def set_lists
     @today = Date.today
-    @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
+    if user_signed_in?
+      @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
+    else
+      @lists = []
+    end
+
   end
 
   def random_recipe
