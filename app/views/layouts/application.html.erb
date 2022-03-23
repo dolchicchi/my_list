@@ -20,7 +20,6 @@
         <ul class="header-btns">
           <% if user_signed_in? %>
             <li class="hedder-btn"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, local: true %></li>
-            <li class="hedder-btn"><%= link_to '献立登録', new_list_path, local: true %></li>
             <li class="hedder-btn"><%= link_to 'レシピ登録', new_recipe_path, local: true %></li>
             <li class="hedder-btn"><%= link_to 'レシピ一覧', recipes_path, local: true %></li>
           <% else %>
