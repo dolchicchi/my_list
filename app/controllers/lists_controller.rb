@@ -62,7 +62,7 @@ class ListsController < ApplicationController
 
   def random_recipe
     recipes = current_user.recipes
-    number = rand(recipes.length - 1)
+    number = rand(recipes.length) - 1
     recipe = recipes[number]
   end
 
