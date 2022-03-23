@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_22_020607) do
+ActiveRecord::Schema.define(version: 2022_03_23_081504) do
 
   create_table "ingredients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "amount"
+    t.float "amount"
     t.integer "unit_id"
     t.bigint "recipe_id", null: false
     t.datetime "created_at", precision: 6, null: false
