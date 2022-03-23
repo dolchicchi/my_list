@@ -16,7 +16,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.order(updated_at: :desc)
   end
 
   def edit
