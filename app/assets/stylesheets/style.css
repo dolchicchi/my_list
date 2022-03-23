@@ -250,6 +250,32 @@ main{
   text-align: center;
 }
 
+.search-content {
+  padding-top: 60px;
+  margin-bottom: 30px;
+  max-width: 1024px;
+  text-align: center;
+}
+
+.search-content input {
+  height: 50px;
+  border-radius: 4px;
+  text-align: center;
+  border: none;
+}
+
+.search-text {
+  width: 60vw;
+  min-width: 480px;
+  max-width: 540px;
+}
+
+.search-btn {
+  width: 60px;
+  background-color: #908a60;
+  color: #fff6e6;
+}
+
 /* 食材修正ページ */
 
 .ingredient-actions {
