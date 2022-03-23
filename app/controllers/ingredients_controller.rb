@@ -1,6 +1,6 @@
 class IngredientsController < ApplicationController
   before_action :ingredient_set, only: [:edit, :update, :destroy]
-  before_action :recipe_set, only: [:new, :edit]
+  before_action :recipe_set, only: [:new, :edit, :update]
 
   def new
     @ingredient = Ingredient.new

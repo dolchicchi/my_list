@@ -4,4 +4,11 @@ Rails.application.routes.draw do
   resources :recipes, except: :show do
     resources :ingredients, only: [:new, :create, :edit, :update, :destroy]
   end
+  resources :lists, only: [:new, :index, :create, :destroy] do
+    collection do
+      post "random"
+      post "all_random"
+      delete "all_destroy"
+    end
+  end
 end

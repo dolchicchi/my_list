@@ -1,32 +1,26 @@
 
 <main>
-  <div class="top-wrapper">
+  <div class="all-randomp-wrapper">
+     <%= link_to "一週間おまかせ", all_random_lists_path, {method: :post, class: "all-random"} %>
+     <%= link_to "全て削除", all_destroy_lists_path, {method: :delete, class: "all-random"} %>
   </div>
   <div class="main-content">
+    <% 7.times do |i| %>
     <div class="postit">
-      <div class="postit-title">３／１６</div>
-      <p><%= "ホイコーロー" %></p>
-      <p><%= "URL" %></p>
-      <p><%= "aaaa" %></p>
+      <div class="postit-title"><%= "#{(@today + i).month}/#{(@today + i).day}" %>
+      </div>
+        <div class="select-btns">
+          <%= link_to "選択", new_list_path(date: (@today + i)) %>
+          <%= link_to "おまかせ", random_lists_path(date: (@today + i)), method: :post %>
+        </div>
+        <p class="line"></p>
+        <% @lists.each do |list| %>
+          <% if list.date == @today + i %>
+            <div>・<%= list.recipe.title %>・・・<%= link_to "削除", list_path(list), method: :delete %></div>
+          <%end%>
+        <% end %>
     </div>
-    <div class="postit">
-      <div class="postit-title">３／１６</div>
-      <p><%= "ホイコーロー" %></p>
-      <p><%= "URL" %></p>
-      <p><%= "aaaa" %></p>
-    </div>
-    <div class="postit">
-      <div class="postit-title">３／１６</div>
-      <p><%= "ホイコーロー" %></p>
-      <p><%= "URL" %></p>
-      <p><%= "aaaa" %></p>
-    </div>
-    <div class="postit">
-      <div class="postit-title">３／１６</div>
-      <p><%= "ホイコーロー" %></p>
-      <p><%= "URL" %></p>
-      <p><%= "aaaa" %></p>
-    </div>
+    <% end %>
   </div>
   <div class="bottom-wrapper">
   </div>

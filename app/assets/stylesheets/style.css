@@ -211,6 +211,10 @@ main{
   justify-content: space-around;
 }
 
+.ingredient input {
+  text-align: center;
+}
+
 .btn {
   width: 100%;
   margin-top: 20px;
@@ -274,6 +278,52 @@ main{
   text-align: center;
   text-decoration: none;
   line-height: 50px;
+}
+
+/* 献立登録機能 */
+.select-btns {
+  display: flex;
+  justify-content: space-around;
+}
+
+.select-btns a {
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+  background-color: #908a60;
+  color: #fff6e6;
+  border: none;
+  height: 25px;
+  width: 60px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 25px;
+}
+
+.all-randomp-wrapper {
+  padding-top: 50px;
+  display: flex;
+}
+
+.all-random {
+  text-decoration: none;
+  display: block;
+  background-color: #908a60;
+  color: #fff6e6;
+  width: 40vw;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 4px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  max-width: 300px;
+}
+
+.all-random:hover {
+  transition: 0.3s;
+  opacity: 0.85;
 }
 
 /* フッター */

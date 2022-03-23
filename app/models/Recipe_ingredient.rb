@@ -8,22 +8,21 @@ class RecipeIngredient
   end
 
   def save
-    recipe  = Recipe.create(
-      title: title,
-      source: source,
-      user_id: user_id
-    )
-
-    ingredients = [name, amount, unit_id].transpose
+    recipe  = Recipe.create(title: title, source: source, user_id: user_id)
     
-    ingredients.each do |ingredient|
+    ingredients_transpose.each do |ingredient|
       header = ["name", "amount", "unit_id"]
       ingredient_parameter = Hash[header.zip(ingredient)]
       ingredient_parameter["recipe_id"] = recipe.id
       Ingredient.create(ingredient_parameter)
     end
+  end
 
-
-
+  def ingredients_transpose
+    am =[]
+    amount.each do |a|
+      am << a.tr('０-９','0-9')
+    end
+    ingredients_transpose = [name, am, unit_id].transpose
   end
 end

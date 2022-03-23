@@ -2,6 +2,12 @@
       <div class="postit-title">
         <span class="fa fa-book"></span><%= recipe.title %>
       </div>
+      <div class="recipe-btn">
+        <p><%= link_to 'タイトルの編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
+        <p><%= link_to '材料の追加', new_recipe_ingredient_path(recipe), {class: "recipe-edit"} %></p>
+        <p><%= link_to 'レシピの削除', recipe_path(recipe), {method: :delete, class: "recipe-destroy"} %></p>
+      </div>
+      <p class="line">〜・〜・〜・〜・</p>
       <% if recipe.source != "" %>
         <p><%= link_to '参考URL', recipe.source, target: :_blank, rel: "noopener noreferrer" %></p>
       <% end %>
@@ -11,10 +17,4 @@
            <%= link_to '修正', edit_recipe_ingredient_path(recipe, ingredient) %>
         </p>
       <% end %>
-      <p class="line">〜・〜・〜・〜・</p>
-      <div class="recipe-btn">
-        <p><%= link_to 'タイトルの編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
-        <p><%= link_to '材料の追加', new_recipe_ingredient_path(recipe), {class: "recipe-edit"} %></p>
-        <p><%= link_to 'レシピの削除', recipe_path(recipe), {method: :delete, class: "recipe-destroy"} %></p>
-      </div>
     </div>

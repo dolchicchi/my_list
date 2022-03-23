@@ -7,7 +7,6 @@ class RecipesController < ApplicationController
 
   def create
     @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
-    
     if @recipe_ingredient.valid?
       @recipe_ingredient.save
       redirect_to recipes_path
@@ -17,7 +16,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.order(updated_at: :desc)
   end
 
   def edit
