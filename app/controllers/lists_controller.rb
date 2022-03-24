@@ -56,14 +56,19 @@ class ListsController < ApplicationController
   end
 
   def set_lists
+    @wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
     @today = Date.today
     if user_signed_in?
       @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
     else
       @lists = []
     end
-
   end
+
+  def set_wday
+    wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
+  end
+    
 
   def random_recipe
     recipes = current_user.recipes
