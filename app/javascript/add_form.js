@@ -16,9 +16,12 @@ function addForm (){
         <div class="ingredient-unit">
           <label for="recipe_ingredient_unit_id">単位</label>
           <select name="[recipe_ingredient][unit_id][]" ><option value="1">---</option>
-            <option value="2">グラム</option>
-            <option value="3">コ</option>
-            <option value="4">本</option></select>
+          <option value="2">グラム</option>
+          <option value="3">コ</option>
+          <option value="4">本</option>
+          <option value="5">束</option>
+          <option value="6">cc</option>
+          <option value="7">カップ</option></select>
         </div>
       </div>`;
     const actions = document.getElementById('actions');
