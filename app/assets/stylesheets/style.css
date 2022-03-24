@@ -105,6 +105,19 @@ main{
   padding: 0;
 }
 
+.top_btn {
+  width: 40px;
+  background: #908a60;
+  text-align: center;
+  border-radius: 4px;
+  bottom: 50px;
+  left: -3px;
+  position: fixed;
+  padding: 15px;
+  color: #fff6e6;
+  text-decoration: none;
+}
+
 /* ユーザー機能フォーム周り */
 
 .user-main{
