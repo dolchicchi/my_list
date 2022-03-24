@@ -279,7 +279,7 @@ main{
 
 .search-text {
   width: 60vw;
-  min-width: 480px;
+  min-width: 320px;
   max-width: 540px;
 }
 
@@ -419,6 +419,10 @@ footer {
 
   .field {
     margin: 0 0 10px 20px;
+  }
+
+  .search-text {
+    margin-bottom: 10px;
   }
 
 }

@@ -7,6 +7,8 @@ class RecipeIngredient
     validates :user_id
   end
 
+
+
   def save
     recipe  = Recipe.create(title: title, source: source, user_id: user_id)
     
@@ -25,4 +27,5 @@ class RecipeIngredient
     end
     ingredients_transpose = [name, am, unit_id].transpose
   end
+
 end

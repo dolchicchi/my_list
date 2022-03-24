@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :destroy]
   before_action :set_search, only: :index
+  before_action :user_match?, only: [:edit, :update, :destroy]
 
   def new
     @recipe_ingredient = RecipeIngredient.new
@@ -57,6 +58,13 @@ class RecipesController < ApplicationController
     @recipes = current_user.recipes.order(updated_at: :desc)
     @q = @recipes.ransack(params[:q])
     @search_recipes = @q.result(distinct: true)
+  end
+
+  def user_match?
+    recipe = Recipe.find(params[:id])
+    unless current_user.id == recipe.user_id
+      redirect_to root_path
+    end
   end
 
 end
