@@ -2,7 +2,7 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :destroy]
   before_action :set_search, only: :index
   before_action :user_match?, only: [:edit, :update, :destroy]
-  
+
   def new
     @recipe_ingredient = RecipeIngredient.new
   end
