@@ -51,7 +51,9 @@ class IngredientsController < ApplicationController
   end
 
   def ingredient_params
-    params.require(:ingredient).permit(:name, :amount, :unit_id)
+    ingredients = params.require(:ingredient).permit(:name, :amount, :unit_id)
+    ingredients[:amount].tr!("０-９", "0-9")
+    ingredients
   end
 
   def ingredients
