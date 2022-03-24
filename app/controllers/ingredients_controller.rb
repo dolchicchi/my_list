@@ -1,6 +1,7 @@
 class IngredientsController < ApplicationController
   before_action :ingredient_set, only: [:edit, :update, :destroy]
   before_action :recipe_set, only: [:new, :edit, :update]
+  before_action :user_match?, only: [:edit, :update, :destroy]
 
   def new
     @ingredient = Ingredient.new
@@ -57,6 +58,13 @@ class IngredientsController < ApplicationController
     end
     unit_ids = ingredients_params[:unit_id]
     ingredients = [names, amounts, unit_ids].transpose
+  end
+
+  def user_match?
+    recipe = Recipe.find(params[:recipe_id])
+    unless current_user.id == recipe.user_id
+      redirect_to root_path
+    end
   end
 
 end
