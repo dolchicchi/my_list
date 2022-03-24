@@ -1,10 +1,10 @@
 class IngredientsController < ApplicationController
+  before_action :new_ingredient, only: [:new, :create]
   before_action :ingredient_set, only: [:edit, :update, :destroy]
-  before_action :recipe_set, only: [:new, :edit, :update]
+  before_action :recipe_set, only: [:new, :create,:edit, :update]
   before_action :user_match?, only: [:edit, :update, :destroy]
-
+  
   def new
-    @ingredient = Ingredient.new
   end
 
   def create
@@ -15,6 +15,7 @@ class IngredientsController < ApplicationController
       ingredient = Ingredient.new(ingredient_parameter)
       unless ingredient.save
         render :new
+        return
       end
     end
     redirect_to recipes_path
@@ -37,6 +38,10 @@ class IngredientsController < ApplicationController
   end
 
   private
+  def new_ingredient
+   @ingredient = Ingredient.new
+  end
+
   def ingredient_set
     @ingredient = Ingredient.find(params[:id])
   end
