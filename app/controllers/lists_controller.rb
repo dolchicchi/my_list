@@ -64,12 +64,7 @@ class ListsController < ApplicationController
       @lists = []
     end
   end
-
-  def set_wday
-    wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
-  end
     
-
   def random_recipe
     recipes = current_user.recipes
     number = rand(recipes.length) - 1
