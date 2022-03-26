@@ -9,7 +9,7 @@
       </div>
       <p class="line">〜・〜・〜・〜・</p>
       <% if recipe.source != "" %>
-        <p><%= link_to '参考URL', recipe.source, target: :_blank, rel: "noopener noreferrer" %></p>
+        <p><%= link_to '参考サイトはこちら', recipe.source, target: :_blank, rel: "noopener noreferrer" %></p>
       <% end %>
       <p>メイン食材</p>
       <% recipe.ingredients.each do |ingredient|%>

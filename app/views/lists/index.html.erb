@@ -16,7 +16,11 @@
         <p class="line"></p>
         <% @lists.each do |list| %>
           <% if list.date == @today + i %>
-            <div>・<%= list.recipe.title %>・・・<%= link_to "削除", list_path(list), method: :delete %></div>
+            <% if list.recipe.source.blank? %>
+              <div>・<%= list.recipe.title %>・・・<%= link_to "削除", list_path(list), method: :delete %></div>
+            <% else %>
+              <div>・<%= link_to list.recipe.title, list.recipe.source, target: :_blank, rel: "noopener noreferrer" %>・・・<%= link_to "削除", list_path(list), method: :delete %></div>
+            <% end %>
           <%end%>
         <% end %>
     </div>
