@@ -1,5 +1,13 @@
 <div class="shopping_lists">
-  <% @sums.each do |sum| %>
-    <p><%= sum.keys[0] %>…<%= sum.values[0].to_i %><%= sum[:unit] %></p>
+  <% @shopping_lists.each do |shopping_list| %>
+    <p>
+      <%= shopping_list.keys[0] %>…
+      <% if shopping_list.values[0] % 1 == 0 %>
+        <%= shopping_list.values[0].to_i %>
+      <% else %>
+        <%= shopping_list.values[0] %>
+      <% end %>
+      <%= shopping_list[:unit] %>
+    </p>
   <% end %> 
 </div>
