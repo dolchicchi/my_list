@@ -1,0 +1,5 @@
+<div class="shopping_lists">
+  <% @sums.each do |sum| %>
+    <p><%= sum.keys[0] %>…<%= sum.values[0].to_i %><%= sum[:unit] %></p>
+  <% end %> 
+</div>

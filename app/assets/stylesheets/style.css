@@ -369,6 +369,12 @@ main{
   opacity: 0.85;
 }
 
+/* 買い物リスト */
+.shopping_lists {
+  color: #ffffff;
+  text-align: center;
+}
+
 /* フッター */
 
 footer {
