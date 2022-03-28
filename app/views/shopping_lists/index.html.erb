@@ -2,21 +2,23 @@
   <div class="user-form">
     <div class="user-postit">
       <div class="user-title">今週の食材</div>
-      <table class="shopping_lists">
-        <tr>
-          <th>食材名</th>
-          <th>使う量</th>
-          <th>家にある量</th>
-          <th>買う量</th>
-        </tr>
-        <% @shopping_lists.each do |shopping_list| %>
-        <tr>
-          <td><%= shopping_list.keys[0] %></td>
-          <td><%= shopping_list.values[0].to_i %><%= shopping_list[:unit] %></td>
-          <td><input type="text"></td>
-          <td></td>
-        </tr>
-        <% end %> 
+      <table class="shopping_lists" id="shopping_lists">
+        <tbody id="shopping_lists_table">
+          <tr>
+            <th>食材名</th>
+            <th>使う量</th>
+            <th>家にある量</th>
+            <th>買う量</th>
+          </tr>
+          <% @shopping_lists.each do |shopping_list| %>
+          <tr>
+            <td><%= shopping_list.keys[0] %></td>
+            <td><span><%= shopping_list.values[0].to_i %></span><%= shopping_list[:unit] %></td>
+            <td><input type="text" class="input-stock"></td>
+            <td><span></span></span><%= shopping_list[:unit] %></td>
+          </tr>
+          <% end %> 
+        </tbody>
       </table>
     </div>
   </div>

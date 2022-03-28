@@ -375,14 +375,23 @@ main{
   text-align: center;
   border-collapse: collapse;
   border-color: #908a60;
+  margin: 0 auto;
 }
 
 .shopping_lists th, .shopping_lists td {
   border: 1px solid #908a60;
   padding: 7px;
+  font-weight: bold;
 }
 
+.input-stock {
+  text-align: center;
+  width: 100%;
+}
 
+.input-stock:focus {
+  outline: none;
+}
 
 /* フッター */
 
