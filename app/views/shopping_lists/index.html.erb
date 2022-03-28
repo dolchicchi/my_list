@@ -6,15 +6,15 @@
         <tbody id="shopping_lists_table">
           <tr>
             <th>食材名</th>
-            <th>使う量</th>
+            <th>使用量</th>
             <th>家にある量</th>
-            <th>買う量</th>
+            <th>不足分</th>
           </tr>
           <% @shopping_lists.each do |shopping_list| %>
           <tr>
             <td><%= shopping_list.keys[0] %></td>
             <td><span><%= shopping_list.values[0].ceil %></span><%= shopping_list[:unit] %></td>
-            <td><input type="text" class="input-stock"></td>
+            <td><input type="text" class="input-stock" placeholder="半角数字のみ入力下さい"></td>
             <td><span></span></span><%= shopping_list[:unit] %></td>
           </tr>
           <% end %> 

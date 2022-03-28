@@ -50,6 +50,18 @@ header {
   color: #908a60;
 }
 
+.flash-message {
+  margin-top: 20px;
+  padding-top: 60px;
+  padding-bottom: 20px;
+  background-color: rgba(144, 138, 96, 0.8);
+  color: #fff6e6;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 100%;
+}
+
 /* メインコンテンツ */
 
 main{
@@ -387,6 +399,13 @@ main{
 .input-stock {
   text-align: center;
   width: 100%;
+  color: #908a60;
+  padding: 10px;
+}
+
+.input-stock::placeholder {
+  color: lightgray;
+  font-size: 12px;
 }
 
 .input-stock:focus {
@@ -427,6 +446,7 @@ footer {
   .field input {
     width: 90%;
   }
+
 }
 
  /* スマホ表示 */
@@ -451,6 +471,11 @@ footer {
 
   .shopping_lists {
     font-size: 12px;
+  }
+
+
+  .input-stock::placeholder {
+    font-size: 2px;
   }
 
 }
