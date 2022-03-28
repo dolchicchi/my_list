@@ -30,6 +30,11 @@
         </ul>
       </nav>
     </header>
+    <div class="flash">
+      <% flash.each do |message_type, message| %>
+        <p class="flash-message"><%= message %></p>
+      <% end %>
+    </div>
     <%= yield %>
     <% if user_signed_in? %>
       <%= link_to '今週の献立に戻る', root_path, local: true, class: "top_btn" %>

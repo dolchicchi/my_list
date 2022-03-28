@@ -1,4 +1,5 @@
 class ShoppingListsController < ApplicationController
+  before_action :date_check, only: :index
   before_action :shopping_lists, only: :index
 
   def index
@@ -10,6 +11,14 @@ class ShoppingListsController < ApplicationController
   def weekly_dates
     @today = Date.today
     @weekly_dates = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
+  end
+
+# 一週間の献立がからの時
+  def date_check
+    if weekly_dates.empty?
+      flash[:danger] = "一件以上の献立登録が必要です。"
+      redirect_to root_path
+    end
   end
 
   # 一週間のデータからレシピの情報のみ取得
@@ -36,7 +45,7 @@ class ShoppingListsController < ApplicationController
     ingredients_index.each do |ingredient|
       @ingredients_name_index << ingredient.name
     end
-    return @ingredients_name_index.uniq!
+    return @ingredients_name_index.uniq
   end
 
   # 一週間分の食材のデータを {食材名 => 分量, unit_id => unit_id}のハッシュになるように変換し配列へ入れる
