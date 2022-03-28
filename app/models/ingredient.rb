@@ -3,7 +3,7 @@ class Ingredient < ApplicationRecord
   
   with_options presence: true do
    validates :name
-   validates :amount, numericality: { only_integer: true }
+   validates :amount, numericality: { with: /[0-9０-９,，.．]+/ }
   end
   validates :unit_id, numericality: { other_than: 1 }
 
