@@ -371,9 +371,18 @@ main{
 
 /* 買い物リスト */
 .shopping_lists {
-  color: #ffffff;
+  color: #908a60;
   text-align: center;
+  border-collapse: collapse;
+  border-color: #908a60;
 }
+
+.shopping_lists th, .shopping_lists td {
+  border: 1px solid #908a60;
+  padding: 7px;
+}
+
+
 
 /* フッター */
 

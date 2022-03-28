@@ -1,13 +1,23 @@
-<div class="shopping_lists">
-  <% @shopping_lists.each do |shopping_list| %>
-    <p>
-      <%= shopping_list.keys[0] %>…
-      <% if shopping_list.values[0] % 1 == 0 %>
-        <%= shopping_list.values[0].to_i %>
-      <% else %>
-        <%= shopping_list.values[0] %>
-      <% end %>
-      <%= shopping_list[:unit] %>
-    </p>
-  <% end %> 
+<div class="user-main">
+  <div class="user-form">
+    <div class="user-postit">
+      <div class="user-title">今週の食材</div>
+      <table class="shopping_lists">
+        <tr>
+          <th>食材名</th>
+          <th>使う量</th>
+          <th>家にある量</th>
+          <th>買う量</th>
+        </tr>
+        <% @shopping_lists.each do |shopping_list| %>
+        <tr>
+          <td><%= shopping_list.keys[0] %></td>
+          <td><%= shopping_list.values[0].to_i %><%= shopping_list[:unit] %></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <% end %> 
+      </table>
+    </div>
+  </div>
 </div>
