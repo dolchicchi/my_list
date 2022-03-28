@@ -11,4 +11,5 @@ Rails.application.routes.draw do
       delete "all_destroy"
     end
   end
+  resources :shopping_lists, only: :index
 end

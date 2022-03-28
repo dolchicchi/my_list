@@ -22,6 +22,7 @@
             <li class="hedder-btn"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, local: true %></li>
             <li class="hedder-btn"><%= link_to 'レシピ登録', new_recipe_path, local: true %></li>
             <li class="hedder-btn"><%= link_to 'レシピ一覧', recipes_path, local: true %></li>
+            <li class="hedder-btn"><%= link_to '買い物一覧', shopping_lists_path, local: true %></li>
           <% else %>
             <li class="hedder-btn"><%= link_to 'ログイン', new_user_session_path, local: true %></li>
             <li class="hedder-btn"><%= link_to '新規登録', new_user_registration_path, local: true %></li>
@@ -29,6 +30,11 @@
         </ul>
       </nav>
     </header>
+    <div class="flash">
+      <% flash.each do |message_type, message| %>
+        <p class="flash-message"><%= message %></p>
+      <% end %>
+    </div>
     <%= yield %>
     <% if user_signed_in? %>
       <%= link_to '今週の献立に戻る', root_path, local: true, class: "top_btn" %>

@@ -22,6 +22,7 @@ class IngredientsController < ApplicationController
   end
 
   def edit
+
   end
 
   def update
@@ -51,7 +52,7 @@ class IngredientsController < ApplicationController
   end
 
   def ingredient_params
-    ingredients = params.require(:ingredient).permit(:name, :amount, :unit_id)
+    ingredients = params.require(:ingredient).permit(:name, :amount, :unit_id).merge(recipe_id: params[:recipe_id])
     ingredients[:amount].tr!("０-９", "0-9")
     ingredients
   end
