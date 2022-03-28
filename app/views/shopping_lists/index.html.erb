@@ -13,7 +13,7 @@
           <% @shopping_lists.each do |shopping_list| %>
           <tr>
             <td><%= shopping_list.keys[0] %></td>
-            <td><span><%= shopping_list.values[0].to_i %></span><%= shopping_list[:unit] %></td>
+            <td><span><%= shopping_list.values[0].ceil %></span><%= shopping_list[:unit] %></td>
             <td><input type="text" class="input-stock"></td>
             <td><span></span></span><%= shopping_list[:unit] %></td>
           </tr>
