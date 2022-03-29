@@ -12,4 +12,6 @@ Rails.application.routes.draw do
     end
   end
   resources :shopping_lists, only: :index
+  resources :folders
+
 end
