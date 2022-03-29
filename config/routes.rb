@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     end
   end
   resources :shopping_lists, only: :index
-  resources :folders
+  resources :folders do
+    member do
+      get 'add_recipe_select'
+      patch 'add_recipe'
+    end
+  end
 
 end
