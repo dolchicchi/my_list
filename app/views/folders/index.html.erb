@@ -1,0 +1,15 @@
+<div class="user-main">
+  <div class="user-form">
+    <div class="user-postit" id="user-postit">
+      <div class="user-title">フォルダ一覧</div>
+      <% @folders.each do |folder| %>
+        <p>
+          <%= link_to folder.title, folder_path(folder) %>
+          <%= link_to "レシピの追加", add_recipe_select_folder_path(folder) %>
+          <%= link_to "フォルダ名の編集", edit_folder_path(folder) %>
+          <%= link_to "フォルダの削除", folder_path(folder), method: :delete %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

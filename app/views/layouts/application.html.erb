@@ -14,11 +14,12 @@
   <body>
     <header>
       <h1 class="header-title">
-        <a href="/" class="title-logo">My Lists</a>
+        <%= link_to "My Lists", new_folder_path, class: "title-logo" %>
       </h1>
       <nav class="header-nav">
         <ul class="header-btns">
           <% if user_signed_in? %>
+            <li class="hedder-btn"><%= link_to 'フォルダ一覧', folders_path, local: true %></li>
             <li class="hedder-btn"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, local: true %></li>
             <li class="hedder-btn"><%= link_to 'レシピ登録', new_recipe_path, local: true %></li>
             <li class="hedder-btn"><%= link_to 'レシピ一覧', recipes_path, local: true %></li>
