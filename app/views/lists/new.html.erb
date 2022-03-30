@@ -9,7 +9,12 @@
     <div class="user-postit" id="user-postit">
       <div class="user-title">献立登録</div>
       <%= form_with model: @list, id: 'new_user', class: 'new_user', local: true do |f| %>
-        <%= render partial: "recipe_list", collection: @search_recipes, :locals => {:f => f} %>
+        <% @search_recipes.each do |search_recipe| %>
+          <div class="search-recipe-btn">
+            <%= f.radio_button :recipe_id, search_recipe.id %>
+            <%= f.label :recipe_id, search_recipe.title, value: search_recipe.id %>        
+          </div>
+        <% end %>
         <input type="hidden" name="date" value="<%= @date %>">
       <div class="actions" id="actions">
         <%= f.submit "登録" %> 

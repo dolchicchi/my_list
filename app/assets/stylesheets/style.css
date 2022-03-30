@@ -260,6 +260,37 @@ main{
   margin-right: 10px;
 }
 
+.folder-btns {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-folder {
+  margin: 7px;
+}
+
+.select-list {
+  background-color: #908a60;
+  color: #fff6e6;
+  padding: 3px;
+  text-align: center;
+  border: 1px solid #908a60;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+.select-list:focus {
+  outline: none;
+}
+
+.recipe-category {
+  display: flex;
+  justify-content: center;
+}
+
 /* レシピ一覧画面 */
 
 .recipe-btn {
@@ -381,6 +412,51 @@ main{
   opacity: 0.85;
 }
 
+/* フォルダ機能周辺 */
+.folder {
+  display: flex;
+  justify-content: space-between;
+}
+
+.folder-link {
+  text-decoration: none;
+  color: #908a60;
+  font-size: 15px;
+}
+
+.folder-btn {
+  text-decoration: none;
+  margin: 0 5px;
+  font-size: 12px;
+  padding: 8px;
+  background-color: #908a60;
+  color: #fff6e6;
+}
+
+.new-folder {
+  text-decoration: none;
+  margin: 0 5px;
+  font-size: 12px;
+  padding: 8px;
+  background-color: #908a60;
+  color: #fff6e6;
+  display: block;
+  width: 150px;
+  margin: 0 auto 30px auto;
+  text-align: center;
+}
+
+.add-list {
+  text-align: center;
+}
+
+.date-select {
+  display: block;
+  width: 30%;
+  margin: 0 auto;
+  color: #908a60;
+}
+
 /* 買い物リスト */
 .shopping_lists {
   color: #908a60;
@@ -410,6 +486,17 @@ main{
 
 .input-stock:focus {
   outline: none;
+}
+
+.folder-show {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-control {
+  width: 30px;
 }
 
 /* フッター */
@@ -476,6 +563,14 @@ footer {
 
   .input-stock::placeholder {
     font-size: 2px;
+  }
+
+  .folder-link {
+    font-size: 8px;
+  }
+
+  .folder-btn {
+    font-size: 4px;
   }
 
 }
