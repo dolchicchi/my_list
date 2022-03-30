@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_lists, only: [:new, :index, :all_destroy]
+  before_action :params_check, only: :create
   before_action :check_recipe, only: [:random, :all_random]
   before_action :set_search, only: :new
 
@@ -35,9 +36,8 @@ class ListsController < ApplicationController
   def all_random
     today = Date.today
     7.times do |i|
-    recipe = random_recipe
-    list_date = {recipe_id: recipe.id, user_id: current_user.id, date: (today + i)}
-    random_save(list_date)
+      recipe = random_recipe
+      random_save({recipe_id: recipe.id, user_id: current_user.id, date: (today + i)})
     end
     redirect_to lists_path
   end
@@ -53,6 +53,12 @@ class ListsController < ApplicationController
   private
   def list_params
     params.require(:list).permit(:recipe_id).merge(user_id: current_user.id, date: params[:date])
+  end
+
+  def params_check
+    if params[:list].blank?
+      redirect_to folder_path(params[:folder_id])
+    end
   end
 
   def set_lists
