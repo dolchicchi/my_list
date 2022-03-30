@@ -1,0 +1,18 @@
+<div class="user-main">
+  <div class="user-form">
+    <div class="user-postit" id="user-postit">
+      <div class="user-title">フォルダ一覧</div>
+      <%= link_to "フォルダの新規作成", new_folder_path, class: "new-folder" %>
+      <% @folders.each do |folder| %>
+        <div class="folder">
+          <%= link_to folder.title, folder_path(folder), class: "folder-link" %>
+          <div class="folder-link_btn">
+            <%= link_to "レシピの追加", add_recipe_select_folder_path(folder), class: "folder-btn" %>
+            <%= link_to "フォルダ名の編集", edit_folder_path(folder), class: "folder-btn" %>
+            <%= link_to "フォルダの削除", folder_path(folder), method: :delete, class: "folder-btn" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

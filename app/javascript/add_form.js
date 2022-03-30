@@ -4,17 +4,17 @@ function addForm (){
     const html = `
       <div class="ingredient">
         <div class="ingredient-name">
-          <label for="recipe_ingredient_name">材料名</label>
+          <label for="recipe_ingredient_name">メイン食材(任意)</label>
           <input name="[recipe_ingredient][name][]" type="text"  />
         </div>
 
         <div class="ingredient-amount">
-          <label for="recipe_ingredient_amount">分量</label>
+          <label for="recipe_ingredient_amount">分量(任意)</label>
           <input name="[recipe_ingredient][amount][]" type="text"  />
         </div>
 
         <div class="ingredient-unit">
-          <label for="recipe_ingredient_unit_id">単位</label>
+          <label for="recipe_ingredient_unit_id">単位(任意)</label>
           <select name="[recipe_ingredient][unit_id][]" ><option value="1">---</option>
           <option value="2">グラム</option>
           <option value="3">コ</option>

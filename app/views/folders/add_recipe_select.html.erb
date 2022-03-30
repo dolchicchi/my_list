@@ -1,0 +1,21 @@
+<div class="user-main">
+  <div class="search-content">
+    <%= search_form_for @q, url: add_recipe_select_folder_path(@folder) do |f| %>
+      <%= f.search_field :title_or_ingredients_name_cont, {placeholder: "レシピ名か食材名を入力して下さい", class: "search-text"} %>
+      <%= f.submit "検索", class: "search-btn" %>
+    <% end %>
+  </div>
+  <div class="user-form">
+    <div class="user-postit" id="user-postit">
+      <div class="user-title">レシピ追加</div>
+      <%= form_with model: @folder ,url: add_recipe_folder_path(@folder), id: 'new_user', class: 'new_user', local: true do |f| %>
+        <%= f.collection_check_boxes(:recipe_ids, @select_recipes, :id, :title, include_hidden: false) do |b| %>
+          <p><%= b.label {b.check_box + b.text } %></p>
+        <% end %>
+      <div class="actions" id="actions">
+        <%= f.submit "追加" %> 
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

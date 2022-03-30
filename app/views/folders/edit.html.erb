@@ -1,0 +1,16 @@
+<div class="user-main">
+  <div class="user-form">
+    <div class="user-postit" id="user-postit">
+      <div class="user-title">フォルダ名の編集</div>
+      <%= form_with model: @folder, id: 'new_user', class: 'new_user', local: true do |f| %>
+      <div class="field">
+        <%= f.label :title, "タイトル" %>
+        <%= f.text_field :title, autofocus: true %>
+      </div>
+      <div class="actions" id="actions">
+        <%= f.submit "登録" %> 
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

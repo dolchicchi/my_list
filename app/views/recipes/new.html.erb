@@ -12,7 +12,21 @@
         <%= f.label :source, "参考URL(任意)" %>
         <%= f.text_field :source %>
       </div>
-
+      <div>フォルダの選択</div>
+      <div class="folder-btns">
+        <% @folders.each do |folder| %>
+          <div class="select-folder">
+            <%= f.radio_button :folder_id, folder.id %>
+            <%= f.label :folder_id, folder.title, value: folder.id %>
+          </div>
+        <% end %>
+      </div>
+      <div>カテゴリーの選択</div>
+      <div class="recipe-category">
+        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-list"}) %>
+        <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-list"}) %>
+        <%= f.collection_select(:type_id, Type.all, :id, :name, {}, {class:"select-list"}) %>
+      </div>
       <div class="btn" id="btn">
         <input type="button" value="入力欄の追加" id="add-btn" class="add-btn"> 
         <input type="button" value="入力欄の削除" id="delete-btn" class="delete-btn"> 

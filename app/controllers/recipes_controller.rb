@@ -1,8 +1,8 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit, :update, :destroy]
+  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_delete]
   before_action :set_search, only: :index
   before_action :user_match?, only: [:edit, :update, :destroy]
-
+  before_action :user_folder_set, only: [:new, :edit]
   def new
     @recipe_ingredient = RecipeIngredient.new
   end
@@ -37,16 +37,28 @@ class RecipesController < ApplicationController
     redirect_to recipes_path
   end
 
+  def folder_delete
+    if @recipe.update(folder_id: :nil)
+      redirect_to folder_path(params[:folder_id])
+    else
+      render root_path
+    end
+  end
+
   private
   def recipe_ingredient_params
     params.require(:recipe_ingredient).permit(
-      :title, :source,
+      :title, :source, :folder_id,
+      :category_id, :genre_id, :type_id,
       name: [], amount: [], unit_id: []
     ).merge(user_id: current_user.id)
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :source)
+    params.require(:recipe).permit(
+      :title, :source, :folder_id,
+      :category_id, :genre_id, :type_id
+    )
   end
 
   def set_recipe
@@ -65,6 +77,10 @@ class RecipesController < ApplicationController
     unless current_user.id == recipe.user_id
       redirect_to root_path
     end
+  end
+
+  def user_folder_set
+    @folders = current_user.folders
   end
 
 end

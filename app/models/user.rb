@@ -8,4 +8,5 @@ class User < ApplicationRecord
    
    has_many :recipes, dependent: :destroy
    has_many :lists, dependent: :destroy
+   has_many :folders, dependent: :destroy
 end
