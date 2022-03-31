@@ -1,10 +1,9 @@
 class ListsController < ApplicationController
   before_action :set_lists, only: [:new, :index, :all_destroy]
-  before_action :params_check, only: :create
-  before_action :check_recipe, only: [:random, :all_random]
-  before_action :set_search, only: :new
+  before_action :set_search, only: [:new, :index]
 
   def index
+    @list = List.new
   end
 
   def new
@@ -14,9 +13,11 @@ class ListsController < ApplicationController
   end
 
   def create
-    list = List.new(list_params)
-    if list.save
+    if params[:list].present?
+      List.create(list_params)
       redirect_to lists_path
+    else
+      redirect_to new_list_path(date: params[:date])
     end
   end
 
@@ -27,19 +28,16 @@ class ListsController < ApplicationController
   end
 
   def random
-    recipe = random_recipe
-    list_date = {recipe_id: recipe.id, user_id: current_user.id, date: params[:date]}
-    random_save(list_date)
-    redirect_to lists_path
-  end
-
-  def all_random
-    today = Date.today
-    7.times do |i|
-      recipe = random_recipe
-      random_save({recipe_id: recipe.id, user_id: current_user.id, date: (today + i)})
+    if params[:list][:date].present? && random_params.present?
+      List.create(random_params)
+    elsif random_params.present?
+      7.times do |i|
+        list = List.new(random_params)
+        list.date += i
+        list.save
+      end
     end
-    redirect_to lists_path
+    redirect_to root_path
   end
 
   def all_destroy
@@ -55,44 +53,33 @@ class ListsController < ApplicationController
     params.require(:list).permit(:recipe_id).merge(user_id: current_user.id, date: params[:date])
   end
 
-  def params_check
-    if params[:list].blank?
-      redirect_to folder_path(params[:folder_id])
-    end
-  end
-
   def set_lists
     @wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
     @today = Date.today
-    if user_signed_in?
-      @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
-    else
-      @lists = []
-    end
+    @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
   end
     
-  def random_recipe
-    recipes = current_user.recipes
-    number = rand(recipes.length) - 1
-    recipe = recipes[number]
-  end
-
-  def random_save(list_date)
-    list = List.new(list_date)
-    unless list.save
-      render :index
-    end
-  end
-
-  def check_recipe
-    if current_user.recipes.empty?
-      redirect_to root_path
-    end
-  end
-  
   def set_search
     @recipes = current_user.recipes.order(updated_at: :desc)
     @q = @recipes.ransack(params[:q])
     @search_recipes = @q.result(distinct: true)
   end
+
+  def select_category_params
+    params.require(:recipe).permit(
+      :category_id, :genre_id, :type_id
+    ).merge(user_id: current_user.id)
+  end
+
+  def random_params
+    recipe = Recipe.random(select_category_params)
+    
+    if recipe.present? && params[:list][:date].present?
+      return {recipe_id: recipe.id, user_id: current_user.id, date: params[:list][:date]}
+    elsif recipe.present? && params[:list][:date].blank?
+      return {recipe_id: recipe.id, user_id: current_user.id, date: Date.today}
+    end
+
+  end
+  
 end

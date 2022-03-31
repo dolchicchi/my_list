@@ -12,7 +12,7 @@
         <%= render partial: "search_folder_recipe", collection: @search_folder_recipes, :locals => {f: f} %>
         <div class="add-list">日付を選択して献立へ追加</div>
         <input type="hidden" name="folder_id" value="<%= @folder.id %>">
-        <%= f.date_field :date, class: 'date-select', placeholder: "レシピ名か食材名を入力して下さい" %>
+        <%= f.date_field :date, class: 'date-select' %>
         <div class="actions" id="actions">
           <%= f.submit "献立へ追加" %> 
         </div>
