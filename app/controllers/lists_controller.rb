@@ -1,6 +1,5 @@
 class ListsController < ApplicationController
   before_action :set_lists, only: [:new, :index, :all_destroy]
-  before_action :check_recipe, only: :random
   before_action :set_search, only: [:new, :index]
 
   def index
@@ -18,7 +17,7 @@ class ListsController < ApplicationController
       List.create(list_params)
       redirect_to lists_path
     else
-      redirect_to new_list_path
+      redirect_to new_list_path(date: params[:date])
     end
   end
 
@@ -60,12 +59,6 @@ class ListsController < ApplicationController
     @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
   end
     
-  def check_recipe
-    if current_user.recipes.empty?
-      redirect_to root_path
-    end
-  end
-  
   def set_search
     @recipes = current_user.recipes.order(updated_at: :desc)
     @q = @recipes.ransack(params[:q])
