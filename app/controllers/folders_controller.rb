@@ -1,8 +1,7 @@
 class FoldersController < ApplicationController
-  # before_action :set_search, only: :show
   before_action :select_recipes, only: :add_recipe_select
   before_action :set_folder, only: [:show, :edit, :destroy, :update, :add_recipe_select]
-  
+  before_action :params_check, only: :add_recipe
   def new
     @folder = Folder.new
   end
@@ -63,6 +62,12 @@ class FoldersController < ApplicationController
   private
   def set_folder
     @folder = Folder.find(params[:id])
+  end
+
+  def params_check
+    if params[:folder].blank?
+      redirect_to add_recipe_select_folder_path(params[:id])
+    end
   end
 
   def add_recipe_date
