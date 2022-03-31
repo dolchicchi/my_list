@@ -75,6 +75,28 @@ main{
   justify-content: space-around;
 }
 
+.select {
+  display: flex;
+  flex-direction: column;
+}
+
+.select-genre-btns {
+  padding-top: 64px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  color: #FFF;
+}
+
+.select-date {
+  margin-bottom: 10px;
+}
+
+.select-action {
+  display: flex;
+  justify-content: space-around;
+}
+
 .postit {
   position: relative;
   margin: 3em 5px 1em 5px;
