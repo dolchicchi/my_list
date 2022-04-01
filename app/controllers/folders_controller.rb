@@ -2,6 +2,7 @@ class FoldersController < ApplicationController
   before_action :select_recipes, only: :add_recipe_select
   before_action :set_folder, only: [:show, :edit, :destroy, :update, :add_recipe_select]
   before_action :params_check, only: :add_recipe
+  
   def new
     @folder = Folder.new
   end
