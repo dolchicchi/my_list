@@ -1,9 +1,10 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_delete]
+  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out]
   before_action :set_search, only: :index
   before_action :user_match?, only: [:edit, :update, :destroy]
   before_action :user_folder_set, only: [:new, :edit]
-  
+  before_action :no_select_check, only: :folder_in
+
   def new
     @recipe_ingredient = RecipeIngredient.new
   end
@@ -38,7 +39,20 @@ class RecipesController < ApplicationController
     redirect_to recipes_path
   end
 
-  def folder_delete
+  def folder_in
+    recipe_ids = params.require(:folder).permit(recipe_ids: [])[:recipe_ids]
+
+    recipe_ids.each do |recipe_id|
+      recipe = Recipe.find(recipe_id)
+      unless recipe.update(folder_id: params[:id])
+        render :add_recipe_select
+        return
+      end
+    end
+    redirect_to folder_path(params[:id])
+  end
+
+  def folder_out
     if @recipe.update(folder_id: :nil)
       redirect_to folder_path(params[:folder_id])
     else
@@ -82,6 +96,13 @@ class RecipesController < ApplicationController
 
   def user_folder_set
     @folders = current_user.folders
+  end
+
+  # 追加レシピが選択されていない場合はリダイレクトする
+  def no_select_check
+    if params[:folder].blank?
+      redirect_to add_recipe_select_folder_path(params[:id])
+    end
   end
 
 end

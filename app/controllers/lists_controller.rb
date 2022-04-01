@@ -1,21 +1,21 @@
 class ListsController < ApplicationController
   before_action :set_lists, only: [:new, :index, :all_destroy]
   before_action :set_search, only: [:new, :index]
-
-  def index
-    @list = List.new
-  end
+  before_action :new_list, only: [:new, :index]
 
   def new
-    @list = List.new
-    @recipe_lists = current_user.recipes
     @date = params[:date]
   end
 
+  def index
+  end
+
   def create
-    if params[:list].present?
+    if params[:list].present? && params[:date].present?
       List.create(list_params)
       redirect_to lists_path
+    elsif params[:folder_id].present? || params[:date].blank?
+      redirect_to folder_path(params[:folder_id])
     else
       redirect_to new_list_path(date: params[:date])
     end
@@ -49,6 +49,10 @@ class ListsController < ApplicationController
   end
 
   private
+  def new_list
+    @list = List.new
+  end
+
   def list_params
     params.require(:list).permit(:recipe_id).merge(user_id: current_user.id, date: params[:date])
   end
