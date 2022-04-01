@@ -9,7 +9,7 @@
     <div class="user-postit" id="user-postit">
       <div class="user-title"><%= @folder.title %></div>
       <%= form_with url: lists_path , id: 'new_user', class: 'new_user', local: true do |f| %>
-        <%= render partial: "search_folder_recipe", collection: @search_folder_recipes, :locals => {f: f} %>
+        <%= render partial: "folder_included_recipe", collection: @folder_included_recipes, :locals => {f: f} %>
         <div class="add-list">日付を選択して献立へ追加</div>
         <input type="hidden" name="folder_id" value="<%= @folder.id %>">
         <%= f.date_field :date, class: 'date-select' %>

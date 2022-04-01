@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     resources :ingredients, only: [:new, :create, :edit, :update, :destroy]
 
     member do
-      delete 'folder_delete'
+      patch 'folder_in'
+      delete 'folder_out'
     end
   end
 
@@ -20,7 +21,6 @@ Rails.application.routes.draw do
   resources :folders do
     member do
       get 'add_recipe_select'
-      patch 'add_recipe'
     end
 
 
