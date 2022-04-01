@@ -1,9 +1,0 @@
-<div class="folder-show">
-  <div>
-    <%= f.radio_button :recipe_id, search_folder_recipe.id, name: "[list][recipe_id]" %>
-    <%= f.label :recipe_id, search_folder_recipe.title, value: search_folder_recipe.id %>
-  </div>
-  <div class="recipe-delete">
-    <%= link_to "フォルダから削除",  folder_delete_recipe_path(search_folder_recipe, folder_id: @folder.id), method: :delete, class: "folder-btn" %>
-  </div>
-</div>
