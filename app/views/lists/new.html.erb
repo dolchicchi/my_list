@@ -9,10 +9,10 @@
     <div class="user-postit" id="user-postit">
       <div class="user-title">献立登録</div>
       <%= form_with model: @list, id: 'new_user', class: 'new_user', local: true do |f| %>
-        <% @search_recipes.each do |search_recipe| %>
+        <% @user_recipes.each do |user_recipe| %>
           <div class="search-recipe-btn">
-            <%= f.radio_button :recipe_id, search_recipe.id %>
-            <%= f.label :recipe_id, search_recipe.title, value: search_recipe.id %>        
+            <%= f.radio_button :recipe_id, user_recipe.id %>
+            <%= f.label :recipe_id, user_recipe.title, value: user_recipe.id %>        
           </div>
         <% end %>
         <input type="hidden" name="date" value="<%= @date %>">

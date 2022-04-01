@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :lists, only: [:new, :index, :create, :destroy] do
     collection do
       post "random"
-      delete "all_destroy"
+      delete "weekly_destroy"
     end
   end
 
