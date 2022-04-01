@@ -1,6 +1,5 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out]
-  before_action :set_search, only: :index
   before_action :user_match?, only: [:edit, :update, :destroy]
   before_action :user_folder_set, only: [:new, :edit]
   before_action :no_select_check, only: :folder_in
@@ -20,7 +19,8 @@ class RecipesController < ApplicationController
   end
 
   def index
-
+    @recipes = current_user.recipes.order(updated_at: :desc)
+    @search_recipes = search_hit_recipe(@recipes)
   end
 
   def edit
@@ -79,14 +79,7 @@ class RecipesController < ApplicationController
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end
-
-
-  def set_search
-    @recipes = current_user.recipes.order(updated_at: :desc)
-    @q = @recipes.ransack(params[:q])
-    @search_recipes = @q.result(distinct: true)
-  end
-
+  
   def user_match?
     recipe = Recipe.find(params[:id])
     unless current_user.id == recipe.user_id
@@ -103,6 +96,12 @@ class RecipesController < ApplicationController
     if params[:folder].blank?
       redirect_to add_recipe_select_folder_path(params[:id])
     end
+  end
+
+  # 検索結果を返す(引数に絞り込みの対象を渡す)Gem:Ransack使用
+  def search_hit_recipe(recipes)
+    @q = recipes.ransack(params[:q])
+    @q.result(distinct: true)
   end
 
 end
