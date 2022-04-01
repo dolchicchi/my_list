@@ -38,13 +38,13 @@
           <% if list.date == @today + i %>
             <% if list.recipe.source.blank? %>
               <div>
-                <span class="category-name"><%= list.recipe.category.name %></span>
+                <span class="category-name"><%#= list.recipe.category.name %></span>
                 <%= list.recipe.title %>
                 ・・・<%= link_to "削除", list_path(list), method: :delete %>
               </div>
             <% else %>
               <div>
-                <span class="category-name"><%= list.recipe.category.name %></span>
+                <span class="category-name"><%#= list.recipe.category.name %></span>
                 <%= link_to list.recipe.title, list.recipe.source, target: :_blank, rel: "noopener noreferrer" %>
                 ・・・<%= link_to "削除", list_path(list), method: :delete %>
               </div>
