@@ -9,6 +9,8 @@ class ListsController < ApplicationController
   end
 
   def index
+    @today = Date.today
+    @wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
   end
 
   def create
@@ -60,9 +62,7 @@ class ListsController < ApplicationController
   end
 
   def set_user_lists
-    @wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
-    @today = Date.today
-    @lists = current_user.lists.where(date: @today..@today + 7).order(date: :asc)
+    @lists = List.weekly_lists(current_user.id)
   end
 
   # 検索結果を返す(引数に絞り込みの対象を渡す)Gem:Ransack使用
