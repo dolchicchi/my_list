@@ -1,11 +1,12 @@
 class ListsController < ApplicationController
   before_action :set_user_lists, only: [:new, :index, :weekly_destroy]
+  before_action :set_user_recipes, only: [:new, :index]
+  before_action :last_dates,  only: [:new, :index]
   before_action :new_list, only: [:new, :index]
 
   def new
     @date = params[:date]
-    recipes = current_user.recipes.order(updated_at: :desc)
-    @user_recipes = search_hit_recipe(recipes)
+    @user_recipes = search_hit_recipe(@recipes)
   end
 
   def index
@@ -65,6 +66,10 @@ class ListsController < ApplicationController
     @lists = List.weekly_lists(current_user.id)
   end
 
+  def set_user_recipes
+    @recipes = current_user.recipes
+  end
+
   # 検索結果を返す(引数に絞り込みの対象を渡す)Gem:Ransack使用
   def search_hit_recipe(recipes)
     @q = recipes.ransack(params[:q])
@@ -96,4 +101,16 @@ class ListsController < ApplicationController
     end
   end
   
+  def last_dates
+    @last_dates = {}
+    @recipes.each do |recipe|
+     last_data = recipe.lists.where.not("date > ?", Date.today - 1).order(date: :desc).limit(1)[0]
+      unless last_data.blank?
+        @last_dates[recipe.id] = last_data.date
+      else
+        @last_dates[recipe.id] = "履歴無し"
+      end
+    end
+    return @last_dates
+  end
 end

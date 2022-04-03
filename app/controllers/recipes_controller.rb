@@ -23,6 +23,7 @@ class RecipesController < ApplicationController
   def index
     @recipes = current_user.recipes.order(updated_at: :desc)
     @user_recipes = search_hit_recipe(@recipes)
+    @last_dates = last_dates
   end
 
   def edit
@@ -106,4 +107,16 @@ class RecipesController < ApplicationController
     @q.result(distinct: true)
   end
 
+  def last_dates
+    hash = {}
+    @recipes.each do |recipe|
+      last_data = recipe.lists.where.not("date > ?", Date.today - 1).order(date: :desc).limit(1)[0]
+      unless last_data.blank?
+        hash[recipe.id] = last_data.date
+      else
+        hash[recipe.id] = "献立登録履歴無し"
+      end
+    end
+    return hash
+  end
 end
