@@ -2,6 +2,10 @@
   <div class="postit-title">
     <span class="fa fa-book"></span><%= recipe.title %>
   </div>
+  <div>
+    <p>直近の献立登録日：</p>
+    <p><%= @last_dates[recipe.id] %></p>
+  </div>
   <div class="recipe-btn">
     <p><%= link_to '編集', edit_recipe_path(recipe), {class: "recipe-edit"} %></p>
     <p><%= link_to '材料の追加', new_recipe_ingredient_path(recipe), {class: "recipe-edit"} %></p>

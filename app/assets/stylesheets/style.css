@@ -178,8 +178,6 @@ main{
 
 .user-main{
   padding-top: 64px;
-  /* display: flex; */
-  /* justify-content: center; */
   min-height: 640px;
 }
 
@@ -479,6 +477,11 @@ main{
 .all-random:hover {
   transition: 0.3s;
   opacity: 0.85;
+}
+
+.search-recipe-btn {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* フォルダ機能周辺 */
