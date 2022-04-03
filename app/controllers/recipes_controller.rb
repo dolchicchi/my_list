@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out]
-  before_action :user_match?, only: [:edit, :update, :destroy]
+  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out, :user_check]
+  before_action :user_check, only: :edit
   before_action :user_folder_set, only: [:new, :edit]
   before_action :no_select_check, only: :folder_in
 
@@ -8,19 +8,21 @@ class RecipesController < ApplicationController
     @recipe_ingredient = RecipeIngredient.new
   end
 
+  # フォームオブジェクトパターン recipeとingredientテーブルに分けて保存
   def create
-    @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
-    if @recipe_ingredient.valid?
-      @recipe_ingredient.save
-      redirect_to recipes_path
+    recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
+    if recipe_ingredient.valid?
+      recipe_ingredient.save
+      redirect_to new_recipe_path
     else
+      user_folder_set
       render :new
     end
   end
 
   def index
     @recipes = current_user.recipes.order(updated_at: :desc)
-    @search_recipes = search_hit_recipe(@recipes)
+    @user_recipes = search_hit_recipe(@recipes)
   end
 
   def edit
@@ -30,7 +32,8 @@ class RecipesController < ApplicationController
     if @recipe.update(recipe_params)
       redirect_to recipes_path
     else
-      render :edit
+      user_folder_set
+      render :edit 
     end
   end
 
@@ -79,10 +82,9 @@ class RecipesController < ApplicationController
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end
-  
-  def user_match?
-    recipe = Recipe.find(params[:id])
-    unless current_user.id == recipe.user_id
+
+  def user_check
+    unless current_user.id == @recipe.user_id
       redirect_to root_path
     end
   end

@@ -9,6 +9,8 @@ class Recipe < ApplicationRecord
   belongs_to :genre
   belongs_to :type
 
+  validates :title, presence: true
+
   def self.match_recipes(dates)
     hash = {}
     dates.each{|key, value|
@@ -32,4 +34,11 @@ class Recipe < ApplicationRecord
     )
   end
 
+  def self.weekly_recipes_date(weekly_dates)
+    weekly_recipes = []
+    weekly_dates.each do |day_date|
+      weekly_recipes << day_date.recipe
+    end
+    return weekly_recipes
+  end
 end
