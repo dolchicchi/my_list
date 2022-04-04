@@ -110,7 +110,7 @@ class RecipesController < ApplicationController
   def last_dates
     hash = {}
     @recipes.each do |recipe|
-      last_data = recipe.lists.where.not("date > ?", Date.today - 1).order(date: :desc).limit(1)[0]
+      last_data = recipe.lists.where.not("date > ?", @today - 1).order(date: :desc).limit(1)[0]
       unless last_data.blank?
         hash[recipe.id] = last_data.date
       else
