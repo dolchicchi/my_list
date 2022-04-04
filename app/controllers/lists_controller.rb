@@ -10,7 +10,6 @@ class ListsController < ApplicationController
   end
 
   def index
-    @today = Date.today
     @wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
   end
 
@@ -46,7 +45,7 @@ class ListsController < ApplicationController
   end
 
   def weekly_destroy
-    if @lists.destroy_all
+    if @lists.order(created_at: :desc).limit(7).destroy_all
       redirect_to lists_path
     else
       render :new
@@ -96,7 +95,7 @@ class ListsController < ApplicationController
     elsif recipe.present? && params[:list][:date].blank?
       return {
         recipe_id: recipe.id, user_id: current_user.id,
-        date: Date.today
+        date: @today
       }
     end
   end
@@ -104,7 +103,7 @@ class ListsController < ApplicationController
   def last_dates
     @last_dates = {}
     @recipes.each do |recipe|
-     last_data = recipe.lists.where.not("date > ?", Date.today - 1).order(date: :desc).limit(1)[0]
+     last_data = recipe.lists.where.not("date > ?", @today - 1).order(date: :desc).limit(1)[0]
       unless last_data.blank?
         @last_dates[recipe.id] = last_data.date
       else
