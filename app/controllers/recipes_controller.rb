@@ -1,7 +1,6 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out]
-  before_action :set_search, only: :index
-  before_action :user_match?, only: [:edit, :update, :destroy]
+  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out, :user_check]
+  before_action :user_check, only: :edit
   before_action :user_folder_set, only: [:new, :edit]
   before_action :no_select_check, only: :folder_in
 
@@ -9,18 +8,22 @@ class RecipesController < ApplicationController
     @recipe_ingredient = RecipeIngredient.new
   end
 
+  # フォームオブジェクトパターン recipeとingredientテーブルに分けて保存
   def create
-    @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
-    if @recipe_ingredient.valid?
-      @recipe_ingredient.save
-      redirect_to recipes_path
+    recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
+    if recipe_ingredient.valid?
+      recipe_ingredient.save
+      redirect_to new_recipe_path
     else
+      user_folder_set
       render :new
     end
   end
 
   def index
-
+    @recipes = current_user.recipes.order(updated_at: :desc)
+    @user_recipes = search_hit_recipe(@recipes)
+    @last_dates = last_dates
   end
 
   def edit
@@ -30,7 +33,8 @@ class RecipesController < ApplicationController
     if @recipe.update(recipe_params)
       redirect_to recipes_path
     else
-      render :edit
+      user_folder_set
+      render :edit 
     end
   end
 
@@ -80,16 +84,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
   end
 
-
-  def set_search
-    @recipes = current_user.recipes.order(updated_at: :desc)
-    @q = @recipes.ransack(params[:q])
-    @search_recipes = @q.result(distinct: true)
-  end
-
-  def user_match?
-    recipe = Recipe.find(params[:id])
-    unless current_user.id == recipe.user_id
+  def user_check
+    unless current_user.id == @recipe.user_id
       redirect_to root_path
     end
   end
@@ -105,4 +101,22 @@ class RecipesController < ApplicationController
     end
   end
 
+  # 検索結果を返す(引数に絞り込みの対象を渡す)Gem:Ransack使用
+  def search_hit_recipe(recipes)
+    @q = recipes.ransack(params[:q])
+    @q.result(distinct: true)
+  end
+
+  def last_dates
+    hash = {}
+    @recipes.each do |recipe|
+      last_data = recipe.lists.where.not("date > ?", @today - 1).order(date: :desc).limit(1)[0]
+      unless last_data.blank?
+        hash[recipe.id] = last_data.date
+      else
+        hash[recipe.id] = "献立登録履歴無し"
+      end
+    end
+    return hash
+  end
 end

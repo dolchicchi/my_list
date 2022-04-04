@@ -1,8 +1,9 @@
 class Type < ActiveHash::Base
   self.data = [
-    { id: 1, name: 'こってり' },
+    { id: 4, name: 'がっつり' },
+    { id: 3, name: 'その他' },
     { id: 2, name: 'あっさり' },
-    { id: 3, name: 'その他' }
+    { id: 1, name: 'こってり' }
   ]
 
   include ActiveHash::Associations

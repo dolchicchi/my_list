@@ -21,7 +21,7 @@
       </div>
       <div class="select-action">
         <%= f.submit 'おまかせ', class: "all-random" %>
-        <%= link_to "全て削除", all_destroy_lists_path, {method: :delete, class: "all-random"} %>
+        <%= link_to "直近７件削除", weekly_destroy_lists_path, {method: :delete, class: "all-random"} %>
       </div>
     <% end %>
   </div>
@@ -41,12 +41,14 @@
                 <span class="category-name"><%= list.recipe.category.name %></span>
                 <%= list.recipe.title %>
                 ・・・<%= link_to "削除", list_path(list), method: :delete %>
+                <p>前回の登録日：<%= @last_dates[list.recipe.id] %></p>
               </div>
             <% else %>
               <div>
                 <span class="category-name"><%= list.recipe.category.name %></span>
                 <%= link_to list.recipe.title, list.recipe.source, target: :_blank, rel: "noopener noreferrer" %>
                 ・・・<%= link_to "削除", list_path(list), method: :delete %>
+                <p>前回の登録日：<%= @last_dates[list.recipe.id] %></p>
               </div>
             <% end %>
           <%end%>

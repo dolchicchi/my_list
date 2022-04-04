@@ -1,6 +1,7 @@
 class FoldersController < ApplicationController
   before_action :set_folder, except: [:new, :create, :index]
   before_action :no_select_check, only: :add_recipe
+  before_action :user_match?, only: [:show, :edit, :add_recipe_select]
 
   def new
     @folder = Folder.new
@@ -59,5 +60,11 @@ class FoldersController < ApplicationController
     @q = recipes.ransack(params[:q])
     @q.result(distinct: true)
   end
-  
+
+  def user_match?
+    folder = Folder.find(params[:id])
+    unless current_user.id == folder.user_id
+      redirect_to root_path
+    end
+  end
 end

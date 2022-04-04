@@ -178,8 +178,6 @@ main{
 
 .user-main{
   padding-top: 64px;
-  /* display: flex; */
-  /* justify-content: center; */
   min-height: 640px;
 }
 
@@ -380,6 +378,30 @@ main{
   color: #fff6e6;
 }
 
+.recipe-index-btns {
+  display: flex;
+}
+
+.recipe-index-btn {
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  
+}
+
+.recipe-index-btn a {
+  display: inline-block;
+  margin-right:  5px;
+  text-decoration: none;
+  background-color: #908a60;
+  color: #fff6e6;
+  font-size: 12px;
+  width: 40px;
+  text-align: center;
+}
+
+
+
 /* 食材修正ページ */
 
 .ingredient-actions {
@@ -455,6 +477,11 @@ main{
 .all-random:hover {
   transition: 0.3s;
   opacity: 0.85;
+}
+
+.search-recipe-btn {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* フォルダ機能周辺 */
