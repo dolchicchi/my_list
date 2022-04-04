@@ -8,8 +8,8 @@ class IngredientsController < ApplicationController
   end
 
   def create
-    ingredient_create_dates_ary.each do |ingredient_date|
-      ingredient = Ingredient.new(ingredient_date)
+    ingredient_create_data_ary.each do |ingredient_data|
+      ingredient = Ingredient.new(ingredient_data)
       unless ingredient.save
         render :new
         return
@@ -23,7 +23,7 @@ class IngredientsController < ApplicationController
   end
 
   def update
-    if @ingredient.update(ingredient_edit_dates)
+    if @ingredient.update(ingredient_edit_datas)
       redirect_to recipes_path
     else
       render :edit
@@ -56,7 +56,7 @@ class IngredientsController < ApplicationController
 
   # 一回のリクエストで複数のレコードに保存するための処理 2
   # データ保存できる形のハッシュを作り配列に格納
-  def ingredient_create_dates_ary
+  def ingredient_create_data_ary
     ingredients_params = params_shape_change
     ary = []
     ingredients_params.each do |ingredient_params|
@@ -82,7 +82,7 @@ class IngredientsController < ApplicationController
     ].transpose
   end
 
-  def ingredient_edit_dates
+  def ingredient_edit_datas
     params[:ingredient][:amount].tr!("０-９", "0-9")
     params.require(:ingredient).permit(:name, :amount, :unit_id).merge(recipe_id: params[:recipe_id])
   end

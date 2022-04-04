@@ -10,7 +10,7 @@ class Ingredient < ApplicationRecord
   end
   validates :unit_id, numericality: { other_than: 1 }
 
-  def self.weekly_ingredients_date(weekly_recipes)
+  def self.weekly_ingredients_data(weekly_recipes)
     weekly_ingredient = []
     weekly_recipes.each do |day_recipe|
       weekly_ingredient << day_recipe.ingredients

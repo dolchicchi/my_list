@@ -11,9 +11,9 @@ class Recipe < ApplicationRecord
 
   validates :title, presence: true
 
-  def self.match_recipes(dates)
+  def self.match_recipes(datas)
     hash = {}
-    dates.each{|key, value|
+    datas.each{|key, value|
       unless value.blank?
         hash[key] = value
       end
@@ -21,8 +21,8 @@ class Recipe < ApplicationRecord
     Recipe.where(hash)
   end
 
-  def self.random(dates)
-    recipes = Recipe.match_recipes(dates)
+  def self.random(datas)
+    recipes = Recipe.match_recipes(datas)
     num = rand(recipes.length) - 1
     return recipes[num]
   end
@@ -34,10 +34,10 @@ class Recipe < ApplicationRecord
     )
   end
 
-  def self.weekly_recipes_date(weekly_dates)
+  def self.weekly_recipes_data(weekly_datas)
     weekly_recipes = []
-    weekly_dates.each do |day_date|
-      weekly_recipes << day_date.recipe
+    weekly_datas.each do |day_data|
+      weekly_recipes << day_data.recipe
     end
     return weekly_recipes
   end

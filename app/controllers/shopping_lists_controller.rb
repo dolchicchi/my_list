@@ -1,5 +1,5 @@
 class ShoppingListsController < ApplicationController
-  before_action :date_check, only: :index
+  before_action :data_check, only: :index
 
   def index
     @shopping_lists = []
@@ -13,26 +13,26 @@ class ShoppingListsController < ApplicationController
 
   private
   # 一週間の献立が空の時はリダイレクト
-  def date_check
-    if weekly_dates.empty?
+  def data_check
+    if weekly_datas.empty?
       flash[:danger] = "一件以上の献立登録が必要です。"
       redirect_to root_path
     end
   end
 
   # 当日より一週間の献立データListテーブルから取得
-  def weekly_dates
+  def weekly_datas
     List.weekly_lists(current_user.id)
   end
 
   # 一週間の献立データに紐づくレシピの情報を取得して配列にまとめるメソッドを使用
   def weekly_recipes
-    Recipe.weekly_recipes_date(weekly_dates)
+    Recipe.weekly_recipes_data(weekly_datas)
   end
 
   # 一週間のレシピに紐づく食材のデータを単次元配列にまとめるメソッドを使用
   def weekly_ingredients
-    Ingredient.weekly_ingredients_date(weekly_recipes)
+    Ingredient.weekly_ingredients_data(weekly_recipes)
   end
 
   # 一週間分の食材のデータから食材名のみを配列にまとめる
