@@ -21,7 +21,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = current_user.recipes.order(updated_at: :desc)
+    @recipes = current_user.recipes.includes(:lists, :ingredients)
     @user_recipes = search_hit_recipe(@recipes)
     @last_dates = last_dates
   end
@@ -108,15 +108,15 @@ class RecipesController < ApplicationController
   end
 
   def last_dates
-    hash = {}
+    @last_dates = {}
     @recipes.each do |recipe|
-      last_data = recipe.lists.where.not("date > ?", @today - 1).order(date: :desc).limit(1)[0]
+      last_data = recipe.lists.select{|list| list.date < @today - 1}[0]
       unless last_data.blank?
-        hash[recipe.id] = last_data.date
+        @last_dates[recipe.id] = last_data.date
       else
-        hash[recipe.id] = "献立登録履歴無し"
+        @last_dates[recipe.id] = "履歴無し"
       end
     end
-    return hash
+    return @last_dates
   end
 end

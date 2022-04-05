@@ -30,7 +30,7 @@ class Recipe < ApplicationRecord
   def self.not_included_folder(current_user_id, params_id)
     Recipe.where(user_id: current_user_id).where.not(folder_id: params_id)
     .or(
-    Recipe.where(user_id: current_user_id).where(folder_id: nil)
+    Recipe.where(user_id: current_user_id, folder_id: nil)
     )
   end
 
