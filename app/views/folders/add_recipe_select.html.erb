@@ -7,7 +7,7 @@
   </div>
   <div class="user-form">
     <div class="user-postit" id="user-postit">
-      <div class="user-title">レシピ追加</div>
+      <div class="user-title"><%= @folder.title %></div>
       <%= form_with model: @folder ,url: folder_in_recipe_path(@folder), id: 'new_user', class: 'new_user', local: true do |f| %>
         <%= f.collection_check_boxes(:recipe_ids, @choice_recipes, :id, :title, include_hidden: false) do |b| %>
           <p><%= b.label {b.check_box + b.text } %></p>

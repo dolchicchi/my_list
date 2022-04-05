@@ -66,7 +66,7 @@ class ListsController < ApplicationController
   end
 
   def set_user_recipes
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.includes(:lists)
   end
 
   # 検索結果を返す(引数に絞り込みの対象を渡す)Gem:Ransack使用
@@ -100,10 +100,11 @@ class ListsController < ApplicationController
     end
   end
   
+  # ユーザーのレシピごとに献立に登録された最終日付を取得
   def last_dates
     @last_dates = {}
     @recipes.each do |recipe|
-     last_data = recipe.lists.where.not("date > ?", @today - 1).order(date: :desc).limit(1)[0]
+     last_data = recipe.lists.select{|list| list.date < @today - 1}[0]
       unless last_data.blank?
         @last_dates[recipe.id] = last_data.date
       else
