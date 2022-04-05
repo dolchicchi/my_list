@@ -22,7 +22,7 @@ class ShoppingListsController < ApplicationController
 
   # 当日より一週間の献立データListテーブルから取得
   def weekly_datas
-    List.weekly_lists(current_user.id)
+    List.weekly_lists(current_user.id).includes(recipe: :ingredients)
   end
 
   # 一週間の献立データに紐づくレシピの情報を取得して配列にまとめるメソッドを使用
