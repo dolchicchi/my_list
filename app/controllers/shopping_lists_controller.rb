@@ -5,7 +5,7 @@ class ShoppingListsController < ApplicationController
     @shopping_lists = []
     weekly_ingredients_name_ary.each do |ingredient_name|
       hash = {}
-      hash[ingredient_name] = weekly_ingredients_hashs.map{|h| h[ingredient_name]}.compact!.sum
+      hash[ingredient_name] = weekly_ingredients_hashs.map{|h| h[ingredient_name]}.compact.sum
       hash[:unit] = weekly_ingredients_unit[ingredient_name]
       @shopping_lists << hash
     end
