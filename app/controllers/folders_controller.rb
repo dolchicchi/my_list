@@ -32,7 +32,7 @@ class FoldersController < ApplicationController
     if @folder.update(folder_params)
       redirect_to folders_path
     else
-      render edit
+      render :edit
     end
   end
 
