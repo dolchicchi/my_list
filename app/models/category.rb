@@ -3,6 +3,7 @@ class Category < ActiveHash::Base
     { id: 1, name: '主菜' },
     { id: 2, name: '副菜' },
     { id: 3, name: 'スープ' },
+    { id: 5, name: 'サラダ' },
     { id: 4, name: 'その他' }
   ]
 
