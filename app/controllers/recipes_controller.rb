@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out, :user_check]
-  before_action :user_check, only: :edit
+  before_action :user_check, only: [:edit, :update, :delete]
   before_action :user_folder_set, only: [:new, :edit]
   before_action :no_select_check, only: :folder_in
 
