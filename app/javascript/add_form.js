@@ -4,7 +4,7 @@ function addForm (){
     const html = `
       <div class="ingredient">
         <div class="ingredient-name">
-          <label for="recipe_ingredient_name">メイン食材(任意)</label>
+          <label for="recipe_ingredient_name">食材(任意)</label>
           <input name="[recipe_ingredient][name][]" type="text"  />
         </div>
 

@@ -571,6 +571,10 @@ main{
   width: 30px;
 }
 
+.new_user {
+  padding-left: 30px;
+}
+
 /* フッター */
 
 footer {
@@ -611,6 +615,9 @@ footer {
  /* スマホ表示 */
 @media (max-width: 599px) {
 
+  .hedder-btn a{
+    font-size: 8px;
+  }
 
   .postit {
     width: 70%;
