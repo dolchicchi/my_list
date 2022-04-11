@@ -20,6 +20,7 @@ class ListsController < ApplicationController
     elsif params[:folder_id].present? || params[:date].blank?
       redirect_to folder_path(params[:folder_id])
     else
+      flash[:danger] = "レシピを選択して下さい"
       redirect_to new_list_path(date: params[:date])
     end
   end
@@ -40,6 +41,10 @@ class ListsController < ApplicationController
         list.date += i
         list.save
       end
+    else
+      flash[:danger] = "レシピ登録を一件以上して下さい"
+      redirect_to root_path
+      return
     end
     redirect_to root_path
   end

@@ -3,55 +3,55 @@
     <div class="user-postit" id="user-postit">
       <div class="user-title">レシピ登録</div>
       <%= form_with model: @recipe_ingredient, url: recipes_path ,id: 'new_user', class: 'new_user', local: true do |f| %>
-      <div class="field">
-        <%= f.label :title, "タイトル(必須)" %>
-        <%= f.text_field :title, autofocus: true %>
-      </div>
+        <div class="field">
+          <%= f.label :title, "タイトル(必須)" %>
+          <%= f.text_field :title, autofocus: true %>
+        </div>
 
-      <div class="field">
-        <%= f.label :source, "参考URL(任意)" %>
-        <%= f.text_field :source %>
-      </div>
-      <div>フォルダの選択</div>
-      <div class="folder-btns">
-        <% @folders.each do |folder| %>
-          <div class="select-folder">
-            <%= f.radio_button :folder_id, folder.id %>
-            <%= f.label :folder_id, folder.title, value: folder.id %>
+        <div class="field">
+          <%= f.label :source, "参考URL(任意)" %>
+          <%= f.text_field :source %>
+        </div>
+        <div>フォルダの選択</div>
+        <div class="folder-btns">
+          <% @folders.each do |folder| %>
+            <div class="select-folder">
+              <%= f.radio_button :folder_id, folder.id %>
+              <%= f.label :folder_id, folder.title, value: folder.id %>
+            </div>
+          <% end %>
+        </div>
+        <div>カテゴリーの選択</div>
+        <div class="recipe-category">
+          <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-list"}) %>
+          <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-list"}) %>
+          <%= f.collection_select(:type_id, Type.all, :id, :name, {}, {class:"select-list"}) %>
+        </div>
+        <div class="btn" id="btn">
+          <input type="button" value="入力欄の追加" id="add-btn" class="add-btn"> 
+          <input type="button" value="入力欄の削除" id="delete-btn" class="delete-btn"> 
+        </div>
+        
+        <div class="ingredient">
+          <div class="ingredient-name">
+            <%= f.label :name, "メイン食材(任意)" %>
+            <%= f.text_field :name, name:"[recipe_ingredient][name][]" %>
           </div>
-        <% end %>
-      </div>
-      <div>カテゴリーの選択</div>
-      <div class="recipe-category">
-        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-list"}) %>
-        <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-list"}) %>
-        <%= f.collection_select(:type_id, Type.all, :id, :name, {}, {class:"select-list"}) %>
-      </div>
-      <div class="btn" id="btn">
-        <input type="button" value="入力欄の追加" id="add-btn" class="add-btn"> 
-        <input type="button" value="入力欄の削除" id="delete-btn" class="delete-btn"> 
-      </div>
-      
-      <div class="ingredient">
-        <div class="ingredient-name">
-          <%= f.label :name, "メイン食材(任意)" %>
-          <%= f.text_field :name, name:"[recipe_ingredient][name][]" %>
+
+          <div class="ingredient-amount">
+            <%= f.label :amount, "分量(任意)" %>
+            <%= f.text_field :amount, name:"[recipe_ingredient][amount][]", placeholder: "数字のみ入力可" %>
+          </div>
+
+          <div class="ingredient-unit">
+            <%= f.label :unit_id, "単位(任意)" %>
+            <%= f.collection_select(:unit_id, Unit.all, :id, :name, {}, {name:"[recipe_ingredient][unit_id][]"}) %>
+          </div>
         </div>
 
-        <div class="ingredient-amount">
-          <%= f.label :amount, "分量(任意)" %>
-          <%= f.text_field :amount, name:"[recipe_ingredient][amount][]", placeholder: "数字のみ入力可" %>
+        <div class="actions" id="actions">
+          <%= f.submit "登録" %> 
         </div>
-
-        <div class="ingredient-unit">
-          <%= f.label :unit_id, "単位(任意)" %>
-          <%= f.collection_select(:unit_id, Unit.all, :id, :name, {}, {name:"[recipe_ingredient][unit_id][]"}) %>
-        </div>
-      </div>
-
-      <div class="actions" id="actions">
-        <%= f.submit "登録" %> 
-      </div>
       <% end %>
     </div>
   </div>

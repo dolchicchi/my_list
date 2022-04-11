@@ -3,30 +3,30 @@
     <div class="user-postit" id="user-postit">
       <div class="user-title">レシピ編集</div>
       <%= form_with model: @recipe, id: 'new_user', class: 'new_user', local: true do |f| %>
-      <div class="field">
-        <%= f.label :title, "タイトル" %>
-        <%= f.text_field :title, autofocus: true %>
-      </div>
-      <div class="field">
-        <%= f.label :source, "参考URL(任意)" %>
-        <%= f.text_field :source %>
-      </div>
-      <div>フォルダの選択</div>
-       <div class="folder-btns">
-        <% @folders.each do |folder| %>
-          <%= f.radio_button :folder_id, folder.id %>
-          <%= f.label :folder_id, folder.title, value: folder.id %>
-        <% end %>
-      </div>
-      <div>カテゴリーの選択</div>
-      <div class="recipe-category">
-        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-list"}) %>
-        <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-list"}) %>
-        <%= f.collection_select(:type_id, Type.all, :id, :name, {}, {class:"select-list"}) %>
-      </div>
-      <div class="actions" id="actions">
-        <%= f.submit "登録" %> 
-      </div>
+        <div class="field">
+          <%= f.label :title, "タイトル" %>
+          <%= f.text_field :title, autofocus: true %>
+        </div>
+        <div class="field">
+          <%= f.label :source, "参考URL(任意)" %>
+          <%= f.text_field :source %>
+        </div>
+        <div>フォルダの選択</div>
+        <div class="folder-btns">
+          <% @folders.each do |folder| %>
+            <%= f.radio_button :folder_id, folder.id %>
+            <%= f.label :folder_id, folder.title, value: folder.id %>
+          <% end %>
+        </div>
+        <div>カテゴリーの選択</div>
+        <div class="recipe-category">
+          <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-list"}) %>
+          <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-list"}) %>
+          <%= f.collection_select(:type_id, Type.all, :id, :name, {}, {class:"select-list"}) %>
+        </div>
+        <div class="actions" id="actions">
+          <%= f.submit "登録" %> 
+        </div>
       <% end %>
     </div>
   </div>

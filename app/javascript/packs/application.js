@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("../add_form")
 require("../calculation")
+require("../guest_user_login")
 import "bootstrap"
 import "../stylesheets/application"
 
