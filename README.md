@@ -1,59 +1,26 @@
-# テーブル設計
+## アプリケーション名
+今週の献立
+## アプリケーション概要
+献立を決める手助けをします。登録済のレシピからランダムで献立登録などを行えます。
+## URL
+https://my-list4869.herokuapp.com/
+## アプリケーションを作成した背景
+いつも献立を考えるのに苦戦している友人を見て自分の作ったアプリで解決できるのではないかと思いました。
+登録済みのレシピからランダムで献立登録できれば解決できると思い開発することにした。
 
-## users テーブル
+## DB設計
+![](app/assets/images/ER%E5%9B%B3.svg)
 
-| Column             | Type    | Options                   |
-| ------------------ | ------- | ------------------------- |
-| nickname           | string  | null: false               |
-| email              | string  | null: false, unique: true |
-| encrypted_password | string  | null: false               |
-
-
-### Association
-
-- has_many :recipes
-- has_many :lists
-
-## recipes テーブル
-
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | ------------------------------ |
-| title            | string     | null: false                    |
-| source           | text       |                                |
-| user             | references | null: false, foreign_key: true |
+## 画面遷移図
+![](app/assets/images/screen.svg)
 
 
-### Association
-
-- belongs_to :user
-- has_one :ingredient
-- has_many :lists
-
-
-## lists テーブル
-
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| date         | date       | null: false                    |
-| user         | references | null: false, foreign_key: true |
-| recipe       | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
-- belongs_to :recipe
-
-
-## ingredients テーブル
-
-| Column         | Type       | Options                        |
-| -------------- | ---------- | ------------------------------ |
-| ingredient     | string     |                                |
-| amount         | integer    |                                |
-| unit_id        | integer    |                                |
-| recipe         | references | null: false, foreign_key: true |
-
-
-### Association
-
-- belongs_to :recipe
+## 開発環境
+* HTML
+* CSS
+* ruby 2.6.5
+* Rails 6.0.4.7
+* heroku
+* Rspec
+* capybara
+* vscode
