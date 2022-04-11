@@ -40,6 +40,10 @@ class ListsController < ApplicationController
         list.date += i
         list.save
       end
+    else
+      flash[:danger] = "レシピ登録を一件以上して下さい"
+      redirect_to root_path
+      return
     end
     redirect_to root_path
   end
