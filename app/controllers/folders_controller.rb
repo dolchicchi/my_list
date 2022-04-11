@@ -12,6 +12,7 @@ class FoldersController < ApplicationController
     if folder.save
       redirect_to folders_path
     else
+      flash[:danger] = "タイトルを入力して下さい"
       render :new
     end
   end
@@ -32,6 +33,7 @@ class FoldersController < ApplicationController
     if @folder.update(folder_params)
       redirect_to folders_path
     else
+      flash[:danger] = "タイトルを入力して下さい"
       render :edit
     end
   end
