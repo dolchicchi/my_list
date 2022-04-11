@@ -15,7 +15,7 @@
               <%= f.radio_button :recipe_id, user_recipe.id %>
               <%= f.label :recipe_id, user_recipe.title, value: user_recipe.id %>
             </div>
-            <div class="last-dates">直近の献立登録日：<%= @last_dates[user_recipe.id] %></div>
+            <div class="last-dates">最後に作った日：<%= @last_dates[user_recipe.id] %></div>
           </div>
         <% end %>
         <input type="hidden" name="date" value="<%= @date %>">
