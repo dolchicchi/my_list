@@ -264,12 +264,28 @@ main{
   height: 50px;
   width: 80px;
   border-radius: 4px;
-  left: calc( 50% - 40px);
+  left: calc( 50% - 53px);
 }
 
 .actions input:hover {
   transition: 0.3s;
   opacity: 0.7;
+}
+
+.login-btn {
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+}
+
+.guest-login {
+  background-color: #908a60;
+  color: #fff6e6;
+  border: none;
+  height: 50px;
+  width: 80px;
+  border-radius: 4px;
+  font-size: 8px;
 }
 
 /* レシピ登録ページ */
