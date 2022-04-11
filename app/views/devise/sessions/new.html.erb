@@ -12,10 +12,13 @@
           <%= f.label :password, "パスワード" %>
           <%= f.password_field :password, autocomplete: "current-password" %>
         </div>
-        <div class="actions">
-        <%= f.submit "ログイン" %>
-      </div>
+        <div class="actions login-btn">
+          <%= f.submit "ログイン", id: "login-btn" %>
+        </div>
       <% end %>
+      <div class="login-btn">
+        <input type="button" class="guest-login" value="ゲストログイン" id="guest-login" >
+      </div>
     </div>
   </div>
 </div>
