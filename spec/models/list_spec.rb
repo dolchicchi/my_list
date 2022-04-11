@@ -9,7 +9,6 @@ RSpec.describe List, type: :model do
   describe 'リスト新規作成' do
     context '新規作成できる場合' do
       it "全ての項目が正しく入力されていれば登録できる" do
-        binding.pry
         expect(@list).to be_valid
       end
     end
