@@ -11,27 +11,30 @@ class IngredientsController < ApplicationController
     ingredient_create_data_ary.each do |ingredient_data|
       ingredient = Ingredient.new(ingredient_data)
       unless ingredient.save
+        flash[:danger] = "正しく入力して下さい"
         render :new
         return
       end
     end
-    redirect_to recipes_path
+      flash[:message] = "登録しました"
+      redirect_to recipes_path
   end
 
   def edit
-
   end
 
   def update
     if @ingredient.update(ingredient_edit_datas)
       redirect_to recipes_path
     else
+      flash[:danger] = "正しく入力して下さい"
       render :edit
     end
   end
 
   def destroy
     @ingredient.destroy
+    flash[:message] = "削除しました"
     redirect_to recipes_path
   end
 
