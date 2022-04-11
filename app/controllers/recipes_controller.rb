@@ -13,10 +13,11 @@ class RecipesController < ApplicationController
     recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
     if recipe_ingredient.valid?
       recipe_ingredient.save
+      flash[:message] = "登録しました"
       redirect_to new_recipe_path
     else
-      user_folder_set
-      render :new
+      flash[:danger] = "タイトルを入力して下さい"
+      redirect_to new_recipe_path
     end
   end
 
@@ -34,12 +35,14 @@ class RecipesController < ApplicationController
       redirect_to recipes_path
     else
       user_folder_set
+      flash[:danger] = "タイトルを入力して下さい"
       render :edit 
     end
   end
 
   def destroy
     @recipe.destroy
+    flash[:message] = "削除しました"
     redirect_to recipes_path
   end
 
@@ -48,11 +51,9 @@ class RecipesController < ApplicationController
 
     recipe_ids.each do |recipe_id|
       recipe = Recipe.find(recipe_id)
-      unless recipe.update(folder_id: params[:id])
-        render :add_recipe_select
-        return
-      end
+      recipe.update(folder_id: params[:id])
     end
+    flash[:message] = "追加しました"
     redirect_to folder_path(params[:id])
   end
 
@@ -97,6 +98,7 @@ class RecipesController < ApplicationController
   # 追加レシピが選択されていない場合はリダイレクトする
   def no_select_check
     if params[:folder].blank?
+      flash[:danger] = "レシピを選択して下さい"
       redirect_to add_recipe_select_folder_path(params[:id])
     end
   end
