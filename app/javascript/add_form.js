@@ -14,7 +14,7 @@ function addForm (){
         </div>
 
         <div class="ingredient-unit">
-          <label for="recipe_ingredient_unit_id">単位(</label>
+          <label for="recipe_ingredient_unit_id">単位</label>
           <select name="[recipe_ingredient][unit_id][]" ><option value="1">---</option>
           <option value="2">グラム</option>
           <option value="3">コ</option>
