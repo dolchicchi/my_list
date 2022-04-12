@@ -1,6 +1,12 @@
 @font-face{
   font-family: "HuiFontP29";
-  src: url('../fonts/HuiFontP29.ttf');
+  src: url('/fonts/HuiFontP29.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'HuiFontP29';
 }
 
 body{
@@ -69,13 +75,109 @@ main{
   margin: 64px auto 0 auto;
 }
 
+.random-menu-title {
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.random-menu-title h4 {
+  width: 300px;
+  background-color: #fff6e6;
+  color: #908a60;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #908a60;
+  font-weight: bold;
+}
+
+.random-menu {
+  display: flex;
+  justify-content: center;
+}
+
 .main-content{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-.select {
+.random-menu-terms {
+  width: 300px;
+  background-color: #fff6e6;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+  transition: 0.3s;
+}
+
+.random-menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 240px;
+  margin-top: 25px;
+  color: #908a60;
+  font-weight: bold;
+}
+
+.random-menu-row label {
+  font-size: 18px;
+}
+
+.random-menu-row select, .random-menu-row input {
+  color: #fff6e6;
+  border: none;
+  background-color: #908a60;
+  border-radius: 4px;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+}
+
+.attention {
+  text-align: center;
+  margin-top: 5px;
+  width: 240px;
+}
+
+.attention p {
+  color: #908a60;
+  font-size: 12px;
+}
+
+.random-menu-submit {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.random-menu-submit a {
+  display: inline-block;
+  text-decoration: none;
+  line-height: 48px;
+}
+
+.random-menu-submit input, .random-menu-submit a {
+  color: #fff6e6;
+  border: 1px solid #fff6e6;
+  border-radius: 4px;
+  background-color: #908a60;
+  font-weight: bold;
+  width: 150px;
+  height: 50px;
+}
+
+.hidden {
+  text-align: center;
+  line-height: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+/* .select {
   display: flex;
   flex-direction: column;
 }
@@ -104,13 +206,13 @@ main{
 }
 
 .select-date input {
-  height: 30pxpx;
+  height: 30px;
 }
 
 .select-action {
   display: flex;
   justify-content: space-around;
-}
+} */
 
 .postit {
   position: relative;

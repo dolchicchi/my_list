@@ -1,29 +1,38 @@
 
 <main>
-  <div class="select">
-    <%= form_with model: @list, url: random_lists_path , id: 'new_user', class: 'new_user', local: true do |f| %>
-      <div class="select-date">
-        <%= f.date_field :date, class: 'date-select' %>
-      </div>
-      <div class="select-genre-btns">
-        <div class="select-genre-btn">
-        <%= f.label :category_id, 'カテゴリ' %>
-        <%= f.collection_select(:category_id, Category.all, :id, :name, {include_blank: "全て"}, name:"recipe[category_id]" ) %>
+  <div class="random-menu-title">
+    <h4 id="pull-down-button"><span>▼</span>おまかせメニュ〜<span>▼</span></h4>
+  </div>
+  <div class="random-menu">
+    <div class="random-menu-terms hidden" id="random-menu">
+      <%= form_with model: @list, url: random_lists_path, local: true do |f| %>
+        <div class="random-menu-row">
+          <%= f.label :category_id, 'カテゴリ' %>
+          <%= f.collection_select(:category_id, Category.all, :id, :name, {include_blank: "全て"}, name:"recipe[category_id]" ) %>
         </div>
-        <div class="select-genre-btn">
-        <%= f.label :genre_id_eq, 'ジャンル' %>
-        <%= f.collection_select(:genre_id, Genre.all, :id, :name, {include_blank: "全て"}, name:"recipe[genre_id]") %>
+        <div class="random-menu-row">
+          <%= f.label :genre_id_eq, 'ジャンル' %>
+          <%= f.collection_select(:genre_id, Genre.all, :id, :name, {include_blank: "全て"}, name:"recipe[genre_id]") %>
         </div>
-        <div class="select-genre-btn">
-        <%= f.label :type_id_eq, 'タイプ' %>
-        <%= f.collection_select(:type_id, Type.all, :id, :name, {include_blank: "全て"}, name:"recipe[type_id]") %>
+        <div class="random-menu-row">
+          <%= f.label :type_id_eq, '気分' %>
+          <%= f.collection_select(:type_id, Type.all, :id, :name, {include_blank: "なんでも"}, name:"recipe[type_id]") %>
         </div>
-      </div>
-      <div class="select-action">
-        <%= f.submit 'おまかせ', class: "all-random" %>
-        <%= link_to "直近７件削除", weekly_destroy_lists_path, {method: :delete, class: "all-random"} %>
-      </div>
-    <% end %>
+        <div class="random-menu-row">
+          <%= f.label :date, '日付' %>
+          <%= f.date_field :date, id: "random-menu-date" %>
+        </div>
+        <div class="attention">
+          <p>※日付を指定しなければ一週間分作成できます</p> 
+        </div>
+        <div class="random-menu-submit">
+          <%= f.submit '一週間おまかせ', id: "random-menu-submit" %>
+        </div>
+        <div class="random-menu-submit">
+          <%= link_to "取り消し", weekly_destroy_lists_path, method: :delete %>
+        </div>
+      <% end %> 
+    </div>
   </div>
   <div class="main-content">
     <% 7.times do |i| %>
