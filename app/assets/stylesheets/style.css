@@ -81,7 +81,7 @@ main{
   padding-top: 60px;
 }
 
-.random-menu-title h4 {
+.pull-down-button {
   width: 300px;
   background-color: #fff6e6;
   color: #908a60;
@@ -91,6 +91,7 @@ main{
   margin-bottom: 0;
   border-bottom: 1px solid #908a60;
   font-weight: bold;
+  transition: 0.2s;
 }
 
 .random-menu {
@@ -177,42 +178,13 @@ main{
   opacity: 0;
 }
 
-/* .select {
-  display: flex;
-  flex-direction: column;
-}
-
-.select-genre-btns {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 10px;
-  color: #FFF;
-}
-
-.select-genre-btn {
-  text-align: center;
-}
-
-.select-genre-btn select {
-  height: 25px;
+.active {
   background-color: #908a60;
-  color: #FFF;
+  color: #fff6e6;
+  font-weight: bold;
   border-radius: 4px;
+  transition: 0.2s;
 }
-
-.select-date {
-  padding-top: 64px;
-  margin-bottom: 10px;
-}
-
-.select-date input {
-  height: 30px;
-}
-
-.select-action {
-  display: flex;
-  justify-content: space-around;
-} */
 
 .postit {
   position: relative;
