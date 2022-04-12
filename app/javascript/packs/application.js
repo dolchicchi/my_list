@@ -10,6 +10,8 @@ require("channels")
 require("../add_form")
 require("../calculation")
 require("../guest_user_login")
+require("../text_change")
+require("../pull_down")
 import "bootstrap"
 import "../stylesheets/application"
 
