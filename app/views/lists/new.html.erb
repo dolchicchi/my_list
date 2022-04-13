@@ -3,6 +3,7 @@
     <%= search_form_for @q, url: new_list_path do |f| %>
       <%= f.search_field :title_or_ingredients_name_cont, {placeholder: "レシピ名か食材名を入力して下さい", class: "search-text"} %>
       <%= f.submit "検索", class: "search-btn" %>
+      <input type="hidden" name="date" value="<%= @date %>">
     <% end %>
   </div>
   <div class="user-form">
