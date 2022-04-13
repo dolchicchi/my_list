@@ -11,6 +11,7 @@
 
 body{
   background-image: url(backimage.jpeg);
+  background-size: cover;
 }
 
 /* ヘッダー */
@@ -20,10 +21,10 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.991);
   display: flex;
   align-items: center;
   z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .header-title {
@@ -72,7 +73,8 @@ header {
 
 main{
   max-width: 1024px;
-  margin: 64px auto 0 auto;
+  margin: 0 auto;
+  padding: 64px;
 }
 
 .random-menu-title {
@@ -92,6 +94,13 @@ main{
   border-bottom: 1px solid #908a60;
   font-weight: bold;
   transition: 0.2s;
+}
+
+.pull-down-button:hover {
+  background-color: #908a60;
+  color: #fff6e6;
+  transition: 0.3s;
+  opacity: 0.9;
 }
 
 .random-menu {
@@ -199,7 +208,7 @@ main{
   line-height: 2;
   color: #908a60;
   font-weight: bold;
-  width: 25%;
+  width: 320px;
 }
 .postit-title {
   background: #fff6e6;
@@ -583,13 +592,13 @@ main{
 .folder-link {
   text-decoration: none;
   color: #908a60;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .folder-btn {
   text-decoration: none;
   margin: 0 5px;
-  font-size: 12px;
+  font-size: 13px;
   padding: 8px;
   background-color: #908a60;
   color: #fff6e6;
@@ -598,7 +607,7 @@ main{
 .new-folder {
   text-decoration: none;
   margin: 0 5px;
-  font-size: 12px;
+  font-size: 15px;
   padding: 8px;
   background-color: #908a60;
   color: #fff6e6;
@@ -669,14 +678,15 @@ main{
 
 footer {
   height: 50px;
-  background-color: darkgray;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
 }
 
 /* タブレット対応 */
 @media (max-width: 1024px) {
 
   .postit {
-    width: 33vw;
+    width: 320px;
   }
 
   .ingredient {
@@ -705,12 +715,16 @@ footer {
  /* スマホ表示 */
 @media (max-width: 599px) {
 
+  .header-title {
+    font-size: 15px;
+  }
+
   .hedder-btn a{
-    font-size: 8px;
+    font-size: 12px;
   }
 
   .postit {
-    width: 70%;
+    width: 320px;
   }
 
   .field input {
@@ -735,11 +749,11 @@ footer {
   }
 
   .folder-link {
-    font-size: 12px;
+    font-size: 18px;
   }
 
   .folder-btn {
-    font-size: 10px;
+    font-size: 13px;
   }
 
 }
