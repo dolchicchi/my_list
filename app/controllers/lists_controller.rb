@@ -111,9 +111,9 @@ class ListsController < ApplicationController
     @recipes.each do |recipe|
      last_data = recipe.lists.select{|list| list.date < @today - 1}[0]
       unless last_data.blank?
-        @last_dates[recipe.id] = last_data.date
+        @last_dates[recipe.id] = "#{last_data.date.month}月#{last_data.date.day}日に作った！"
       else
-        @last_dates[recipe.id] = "履歴無し"
+        @last_dates[recipe.id] = "初挑戦かも！"
       end
     end
     return @last_dates
