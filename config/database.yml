@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: my_lists_production
-  username: my_lists
-  password: <%= ENV['MY_LISTS_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
