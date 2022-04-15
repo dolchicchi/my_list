@@ -85,11 +85,15 @@ RSpec.describe "Lists", type: :system do
       sign_in(@user)
       # レシピ名は存在していない
       expect(page).to have_no_content(@recipe.title)
-      # おまかせボタンがある
-      expect(page).to have_button 'おまかせ'
+      # おまかせメニューボタンがある
+      expect(page).to have_button 'おまかせメニュ〜'
+      # おまかせメニューボタンをクリックする
+      click_on('おまかせメニュ〜')
+      # 非表示だった一週間おまかせボタンが表示される
+      expect(page).to have_button '一週間おまかせ'
       # おまかせボタンをクリックするとListテーブルのカウントが７上がる
       expect{
-        click_on('おまかせ')
+        click_on('一週間おまかせ')
       }.to change{List.count}.by(7)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
@@ -102,11 +106,15 @@ RSpec.describe "Lists", type: :system do
       another_user = FactoryBot.create(:user)
       # ログインしてトップページに移動する
       sign_in(another_user)
-      # おまかせボタンがある
-      expect(page).to have_button 'おまかせ'
+      # おまかせメニューボタンがある
+      expect(page).to have_button 'おまかせメニュ〜'
+      # おまかせメニューボタンをクリックする
+      click_on('おまかせメニュ〜')
+      # 非表示だった一週間おまかせボタンが表示される
+      expect(page).to have_button '一週間おまかせ'
       # おまかせボタンをクリックしてもListテーブルのカウントは上がらない
       expect{
-        click_on('おまかせ')
+        click_on('一週間おまかせ')
       }.to change{List.count}.by(0)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
@@ -118,14 +126,23 @@ RSpec.describe "Lists", type: :system do
       today = Date.today
       # ログインする
       sign_in(@user)
-      # 日付の選択フォームがある
-      expect(page).to have_css('#list_date')
-      # おまかせボタンがある
-      expect(page).to have_button('おまかせ')
       # レシピ名は存在しない
       expect(page).to have_no_content(@recipe.title)
+      # おまかせメニューボタンがある
+      expect(page).to have_button 'おまかせメニュ〜'
+      # おまかせメニューボタンをクリックする
+      click_on('おまかせメニュ〜')
+      # 日付の選択フォームがある
+      expect(page).to have_css('#random-menu-date')
+      # 非表示だった一週間おまかせボタンが表示される
+      expect(page).to have_button '一週間おまかせ'
+      # おまかせボタンは存在しない
+      expect(page).to have_no_content('おまかせ')
       # 日付を指定する
       find('input[name="list[date]"]').set(today)
+      # 一週間おまかせボタンがおまかせボタンに変化している
+      expect(page).to have_no_content('一週間おまかせ')
+      expect(page).to have_button 'おまかせ'
       # おまかせボタンをクリックするとListテーブルのカウントが１上がる
       expect{
         click_on('おまかせ')
@@ -137,26 +154,32 @@ RSpec.describe "Lists", type: :system do
     end
   end
 
-  context '直近７件削除ボタンを押すと７件削除される' do
+  context '取り消しボタンを押すと７件削除される' do
     it '７件登録がある状態で削除を押す' do
       # ログインしてトップページに移動する
       sign_in(@user)
       # レシピ名は存在していない
       expect(page).to have_no_content(@recipe.title)
-      # おまかせボタンがある
-      expect(page).to have_button 'おまかせ'
-      #  直近７件削除ボタンが存在する
-      expect(page).to have_link '直近７件削除'
+      # おまかせメニューボタンがある
+      expect(page).to have_button 'おまかせメニュ〜'
+      # おまかせメニューボタンをクリックする
+      click_on('おまかせメニュ〜')
+      # 非表示だった一週間おまかせボタンが表示される
+      expect(page).to have_button '一週間おまかせ'
+      # 非表示だった取り消しボタンが表示される
+      expect(page).to have_link '取り消し'
       # おまかせボタンをクリックするとListテーブルのカウントが７上がる
       expect{
-        click_on('おまかせ')
+        click_on('一週間おまかせ')
       }.to change{List.count}.by(7)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
       # レシピ名が表示されている
       expect(page).to have_content(@recipe.title)
+      # おまかせメニューボタンをクリックする
+      click_on('おまかせメニュ〜')
       #  直近７件削除ボタンを押す
-      click_on('直近７件削除')
+      click_on('取り消し')
       # レシピ名が消えている
       expect(page).to have_no_content(@recipe.title)
     end
