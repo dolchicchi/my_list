@@ -35,7 +35,7 @@ RSpec.describe "Recipes", type: :system do
     end
   end
   context 'レシピ登録ができない' do 
-    it '正しい情報を入力すればユーザー新規登録ができてトップページに移動する' do
+    it '正しい情報を入力すれば新規登録ができてトップページに移動する' do
       # ログインする
       sign_in(@user)
       # レシピ登録ボタンがある
@@ -53,7 +53,7 @@ RSpec.describe "Recipes", type: :system do
         find('input[name="commit"]').click
       }.to change{Recipe.count}.by(0).and change {Ingredient.count}.by(0)
       # 再びレシピ登録ページに戻っている
-      expect(current_path).to eq recipes_path
+      expect(current_path).to eq new_recipe_path
     end
   end
 
