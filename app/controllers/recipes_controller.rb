@@ -116,7 +116,7 @@ class RecipesController < ApplicationController
       unless last_data.blank?
         @last_dates[recipe.id] = "#{last_data.date.month}月#{last_data.date.day}日に作った！"
       else
-        @last_dates[recipe.id] = "初挑戦かも！"
+        @last_dates[recipe.id] = "初挑戦！?"
       end
     end
     return @last_dates
