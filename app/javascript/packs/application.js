@@ -12,6 +12,7 @@ require("../calculation")
 require("../guest_user_login")
 require("../text_change")
 require("../pull_down")
+require("../color_change")
 import "bootstrap"
 import "../stylesheets/application"
 

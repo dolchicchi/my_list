@@ -256,8 +256,21 @@ main{
 .category-name {
   background-color: #908a60;
   color: #fff6e6;
-  padding: 2px;
-  font-size: 10px;
+  padding: 3px;
+  font-size: 12px;
+}
+
+.red {
+  background-color: rgb(189, 53, 53);
+  /* background-color: rgb(243, 118, 93); */
+}
+
+.blue {
+  background-color: #e69934;
+}
+
+.yellow {
+  background-color: #c5c234;
 }
 
 /* ユーザー機能フォーム周り */
