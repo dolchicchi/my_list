@@ -97,6 +97,8 @@ main{
   border-bottom: 1px solid #908a60;
   font-weight: bold;
   transition: 0.2s;
+  border: none;
+  font-size: 23px;
 }
 
 .pull-down-button:hover {
