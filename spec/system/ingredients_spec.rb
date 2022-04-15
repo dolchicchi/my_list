@@ -21,7 +21,7 @@ RSpec.describe "Ingredients", type: :system do
       # 材料の追加ページへ移動する
       visit new_recipe_ingredient_path(@recipe)
       # 材料の情報を入力する
-      fill_in '材料名', with: another_ingredient.name
+      fill_in '食材名', with: another_ingredient.name
       fill_in '分量', with: another_ingredient.amount
       select 'コ', from: '[recipe_ingredient][unit_id][]'
       # 登録を押すとIngredientモデルのカウントが1上がる
@@ -45,7 +45,7 @@ RSpec.describe "Ingredients", type: :system do
       # 材料の追加ページへ移動する
       visit new_recipe_ingredient_path(@recipe)
       # 材料の情報を入力する
-      fill_in '材料名', with: ''
+      fill_in '食材名', with: ''
       fill_in '分量', with: ''
       # 登録を押してもIngredientモデルのカウントが上がらない
       expect{
