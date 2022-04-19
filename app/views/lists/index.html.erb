@@ -6,7 +6,7 @@
   <div class="random-menu">
     <div class="random-menu-terms hidden" id="random-menu">
       <%= form_with model: @list, url: random_lists_path, local: true do |f| %>
-        <div class="random-menu-row hidden">
+        <div class="random-menu-row">
           <%= f.label :category_id, 'カテゴリ' %>
           <%= f.collection_select(:category_id, Category.all, :id, :name, {include_blank: "全て"}, name:"recipe[category_id]" ) %>
         </div>
