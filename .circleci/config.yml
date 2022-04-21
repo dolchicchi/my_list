@@ -45,9 +45,6 @@ jobs:
 
     # run tests!
     - run:
-        name: yarn Install
-        command: yarn install
-    - run:
         name: Run rspec
         command: |
           mkdir /tmp/test-results
