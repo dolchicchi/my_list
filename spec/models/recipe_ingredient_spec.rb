@@ -5,7 +5,7 @@ RSpec.describe RecipeIngredient, type: :model do
     before do
       user = FactoryBot.create(:user)
       @recipe_ingredient = FactoryBot.build(:recipe_ingredient, user_id: user.id)
-      sleep 0.1
+      sleep 0.02
     end
 
     context '内容に問題ない場合' do

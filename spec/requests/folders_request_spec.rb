@@ -5,7 +5,7 @@ RSpec.describe "Folders", type: :request do
     @user = FactoryBot.create(:user)
     @folder = FactoryBot.create(:folder,user_id: @user.id)
     @recipe = FactoryBot.create(:recipe, user_id: @user.id, folder_id: @folder.id)
-    sleep 0.1
+    sleep 0.02
   end
 
   describe 'GET #index' do

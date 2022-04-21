@@ -6,7 +6,7 @@ RSpec.describe "ShoppingLists", type: :request do
     @recipe = FactoryBot.create(:recipe, user_id: @user.id)
     @list = FactoryBot.create(:list, user_id: @user.id, recipe_id: @recipe.id)
     @ingredient = FactoryBot.create(:ingredient, recipe_id: @recipe.id)
-    sleep 0.1
+    sleep 0.02
   end
 
   describe 'GET #index' do

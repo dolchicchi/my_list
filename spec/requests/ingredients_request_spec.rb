@@ -5,7 +5,7 @@ RSpec.describe "Ingredients", type: :request do
     @user = FactoryBot.create(:user)
     @recipe = FactoryBot.create(:recipe, user_id: @user.id)
     @ingredient = FactoryBot.create(:ingredient, recipe_id: @recipe.id)
-    sleep 0.1
+    sleep 0.02
   end
 
   describe 'GET #new' do

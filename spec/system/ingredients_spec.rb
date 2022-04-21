@@ -5,6 +5,7 @@ RSpec.describe "Ingredients", type: :system do
     @user = FactoryBot.create(:user)
     @recipe = FactoryBot.create(:recipe, user_id: @user.id)
     @ingredient = FactoryBot.create(:ingredient, recipe_id: @recipe.id)
+    sleep 0.02
   end
 
   context '材料の新規作成ができる' do
