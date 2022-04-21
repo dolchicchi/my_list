@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/ruby:2.6.5-node-browsers
+    - image: circleci/ruby:2.6.5
       environment:
         - BUNDLER_VERSION: 2.1.4
         - RAILS_ENV: 'test'
@@ -21,10 +21,6 @@ jobs:
         keys:
         - v1-dependencies-{{ checksum "Gemfile.lock" }}
         - v1-dependencies-
-
-    - run:
-        name: yarn Install
-        command: yarn install
 
     - run:
         name: install dependencies
@@ -48,6 +44,9 @@ jobs:
            bundle exec rake db:schema:load
 
     # run tests!
+    - run:
+        name: yarn Install
+        command: yarn install
     - run:
         name: Run rspec
         command: |
