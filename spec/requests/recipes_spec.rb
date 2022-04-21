@@ -7,7 +7,7 @@ RSpec.describe "Recipes", type: :request do
     @ingredient = FactoryBot.create(:ingredient, recipe_id: @recipe.id)
     @recipe_ingredient = FactoryBot.build(:recipe_ingredient, user_id: @user.id)
     @folder = FactoryBot.create(:folder,user_id: @user.id)
-    sleep 0.1
+    sleep 0.02
   end
 
   describe 'GET #index' do

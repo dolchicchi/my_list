@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Folder, type: :model do
   before do
     @folder = FactoryBot.build(:folder)
-    sleep 0.1
+    sleep 0.02
   end
 
   describe 'フォルダ新規作成' do

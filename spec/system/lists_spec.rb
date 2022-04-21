@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "Lists", type: :system do
   before do
     @user = FactoryBot.create(:user)
-    @recipe = FactoryBot.create(:recipe, user_id: @user.id)
     @list = FactoryBot.build(:list)
+    @recipe = FactoryBot.create(:recipe, user_id: @user.id)
     sleep 0.02
   end
 
@@ -145,7 +145,7 @@ RSpec.describe "Lists", type: :system do
       expect(page).to have_button 'おまかせ'
       # おまかせボタンをクリックするとListテーブルのカウントが１上がる
       expect{
-        click_on('おまかせ')
+        find('input[name="commit"]').click
       }.to change{List.count}.by(1)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
