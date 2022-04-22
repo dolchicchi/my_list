@@ -1,65 +1,68 @@
-version: 2
+version: 2.1
 jobs:
-  build:
-    docker:
-    - image: circleci/ruby:2.6.5
-      environment:
-        - BUNDLER_VERSION: 2.1.4
-        - RAILS_ENV: 'test'
-    - image: circleci/mysql:5.6.51
-      environment:
-        - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-        - MYSQL_ROOT_HOST: '127.0.0.1'
+ build:
+   docker:
+   - image: circleci/ruby:2.6.5-node-browsers
+     environment:
+       - BUNDLER_VERSION: 2.1.4
+       - RAILS_ENV: 'test'
+   - image: circleci/mysql:5.6.51
+     environment:
+       - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+       - MYSQL_ROOT_HOST: '127.0.0.1'
 
-    working_directory: ~/my_list  #自身のアプリディレクトリ名を設定  
+   working_directory: ~/my_list
 
 
-    steps:
-    - checkout
+   steps:
+   - checkout
 
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "Gemfile.lock" }}
-        - v1-dependencies-
+   - restore_cache:
+       keys:
+       - v1-dependencies-{{ checksum "Gemfile.lock" }}
+       - v1-dependencies-
 
-    - run:
-        name: install dependencies
-        command: |
-          gem install bundler -v 2.1.4
-          bundle install --jobs=4 --retry=3 --path vendor/bundle
+   - run:
+       name: install dependencies
+       command: |
+         gem install bundler -v 2.1.4
+         bundle install --jobs=4 --retry=3 --path vendor/bundle
 
-    - save_cache:
-        paths:
-        - ./vendor/bundle
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+   - save_cache:
+       paths:
+       - ./vendor/bundle
+       key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-    # Database setup
-    - run: mv ./config/database.yml.ci ./config/database.yml
+   # Database setup
+   - run: mv ./config/database.yml.ci ./config/database.yml
 
-    # Database setup
-    - run:
-        name: Databasesetup
-        command: |
-           bundle exec rake db:create
-           bundle exec rake db:schema:load
+   # Database setup
+   - run:
+       name: DatabaseSetup
+       command: |
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
 
-    # run tests!
-    - run:
-        name: Run rspec
-        command: |
-          mkdir /tmp/test-results
-          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
-            circleci tests split --split-by=timings)"
+   # yarn install
+   - run:
+       name: yarn Install
+       command: yarn install
 
-          bundle exec rspec \
-            --format progress \
-            --out /tmp/test-results/rspec.xml \
-            --format progress \
-            $TEST_FILES
 
-    # collect reports
-    - store_test_results:
-        path: /tmp/test-results
-    - store_artifacts:
-        path: /tmp/test-results
-        destination: test-results
+   - run: bundle exec bin/webpack
+
+   # run tests!
+   - run:
+       name: RSpec 並列処理
+       command: |
+         mkdir /tmp/test-results
+         TEST_FILES="$(circleci tests glob "**/spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+         bundle exec rspec --format progress \
+                         --out /tmp/test-results/rspec.xml \
+                         --format progress \
+                         $TEST_FILES
+
+   - add_ssh_keys:
+       fingerprints:
+       - ""
