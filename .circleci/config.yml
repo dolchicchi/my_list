@@ -47,7 +47,7 @@ jobs:
    # yarn install
    - run:
        name: yarn Install
-       command: yarn install
+       command: npm install --global yarn
 
 
    - run: bundle exec bin/webpack
