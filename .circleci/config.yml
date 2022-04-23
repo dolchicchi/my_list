@@ -2,7 +2,7 @@ version: 2.1
 jobs:
  build:
    docker:
-   - image: circleci/ruby:2.6.5-node-browsers
+   - image: circleci/ruby:2.6.5
      environment:
        - BUNDLER_VERSION: 2.1.4
        - RAILS_ENV: 'test'
@@ -10,6 +10,7 @@ jobs:
      environment:
        - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
        - MYSQL_ROOT_HOST: '127.0.0.1'
+   - image: cimg/node:14.19.0
 
    working_directory: ~/my_list
 
@@ -62,7 +63,3 @@ jobs:
                          --out /tmp/test-results/rspec.xml \
                          --format progress \
                          $TEST_FILES
-
-   - add_ssh_keys:
-       fingerprints:
-       - ""
