@@ -44,6 +44,20 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:schema:load
 
+    - run:
+      name: Setup Node.js via nvm
+      command: |
+        curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+        echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
+        echo 'source "$NVM_DIR/nvm.sh" --no-use' >> $BASH_ENV 
+        source $BASH_ENV
+        nvm install --latest-npm --no-progress
+        nvm alias default
+        sed -i -e 's/ --no-use//' $BASH_ENV
+    - run:
+      name: Version Change
+      command: nvm use v14.19.0
+
    # yarn install
    - run:
        name: yarn Install
