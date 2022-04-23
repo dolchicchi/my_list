@@ -43,7 +43,7 @@ jobs:
        command: |
           bundle exec rake db:create
           bundle exec rake db:schema:load
-          
+
    - run:
        name: Node バージョンの切り替え
        command: |
@@ -64,7 +64,7 @@ jobs:
        command: yarn install
 
 
-   - run: bundle exec bin/webpack
+  #  - run: bundle exec bin/webpack
 
    # run tests!
    - run:
