@@ -1,8 +1,19 @@
 version: 2.1
-  orbs:
-  node: circleci/node@4.7.0
 
-version: 2
+orbs:
+  ruby: circleci/ruby@1.1.2
+  node: circleci/node@2
+
+# setup
+commands:
+  setup:
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+
 jobs:
   build:
     docker:
@@ -38,7 +49,16 @@ jobs:
         - ./vendor/bundle
         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-
+    # - run:
+    #     name: Node バージョンの切り替え
+    #     command: |
+    #       set +e
+    #       wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+    #       export NVM_DIR="$HOME/.nvm"
+    #       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    #       [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    #       nvm install v14
+    #       nvm alias default 14.19.0
 
     # - restore_cache:
     #     keys:
