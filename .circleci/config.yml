@@ -1,35 +1,58 @@
 version: 2
-
 jobs:
-  test:
+  build:
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
-        environment:
-          RAILS_ENV: test
-      - image: circleci/mysql:5.6.51
-        environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: my_lists_test
+    - image: circleci/ruby:2.6.5-node-browsers
+      environment:
+        - BUNDLER_VERSION: 2.1.4
+        - RAILS_ENV: 'test'
+    - image: circleci/mysql:5.6.51
+      environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+        - MYSQL_ROOT_HOST: '127.0.0.1'
+
     working_directory: ~/my_list
+
+
     steps:
-      - checkout
-      - run:
-          name: bundle install
-          command: bundle install --path vendor/bundle
-      - run:
-          name: データベースの起動を待機
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
-      - run:
-          name: データベースのセットアップ
-          command: bundle exec rake db:schema:load
-      - run: 
-          name: テストの実行
-          command: bundle exec rspec
+    - checkout
 
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - v1-dependencies-
 
-workflows:
-  version: 2
-  workflows:
-    jobs:
-      - test
+    - run:
+        name: install dependencies
+        command: |
+          gem install bundler -v 2.4.1
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+    - save_cache:
+        paths:
+        - ./vendor/bundle
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+    # Database setup
+    - run: mv ./config/database.yml.ci ./config/database.yml
+
+    # Database setup
+    - run:
+        name: Databasesetup
+        command: |
+           bundle exec rake db:create
+           bundle exec rake db:schema:load
+
+    # run tests!
+    - run:
+        name: Run rspec
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+            circleci tests split --split-by=timings)"
+
+          bundle exec rspec \
+            --format progress \
+            --out /tmp/test-results/rspec.xml \
+            --format progress \
+            $TEST_FILES
