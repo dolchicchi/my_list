@@ -1,65 +1,35 @@
-version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2
+version: 2
 
 jobs:
-  build:
+  test:
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers #rubyのversionに合ったコンテナ
+      - image: circleci/ruby:2.6.5-node-browsers
         environment:
-          - BUNDLER_VERSION: 2.1.4 # これがないとbundle installできない
-          - RAILS_ENV: 'test'
-          - DB_HOST: 127.0.0.1
+          RAILS_ENV: test
       - image: circleci/mysql:5.6.51
         environment:
-          - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          - MYSQL_USER: root
-          - MYSQL_DB: my_lists_test # testのDB名指定
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: my_lists_test
     working_directory: ~/my_list
     steps:
-      # CI環境上の working_directory の値の場所にGitリポジトリをコピーする。
       - checkout
-
-      # dockerコンテナの立ち上げを待つ(これ不要かも…？？？）
       - run:
-          name: wait for database
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 5m
-
-      # キャッシュがあれば、リストアする。テスト時間の短縮につながる。keysでリストアするキャッシュを複数指定
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-
-      # Bundle install dependencies
+          name: bundle install
+          command: bundle install --path vendor/bundle
       - run:
-          name: Install dependencies
-          command: |
-            gem install bundler -v 2.1.4
-            bundle install --path=vendor/bundle --jobs 4 --retry 3
-
-      # キャッシュする
-      - save_cache:
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
-      # DBのセットアップ
+          name: データベースの起動を待機
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
-          name: Database Setup
-          command: |
-            bundle exec rake db:create
-            bundle exec rake db:schema:load
+          name: データベースのセットアップ
+          command: bundle exec rake db:schema:load
+      - run: 
+          name: テストの実行
+          command: bundle exec rspec
 
-      # RSpecを実行
-      - run:
-          name: Run rspec
-          command: |
-            bundle exec rspec --profile 10 \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
-      # Save artifacts
-      - store_test_results:
-          path: /tmp/test-results
+workflows:
+  version: 2
+  workflows:
+    jobs:
+      - test
