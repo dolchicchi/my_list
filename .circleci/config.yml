@@ -1,79 +1,65 @@
 version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+
 jobs:
- build:
-   docker:
-   - image: circleci/ruby:2.6.5-node
-     environment:
-       - BUNDLER_VERSION: 2.1.4
-       - RAILS_ENV: 'test'
-   - image: circleci/mysql:5.6.51
-     environment:
-       - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-       - MYSQL_ROOT_HOST: '127.0.0.1'
-   - image: cimg/node:14.19.0
+  build:
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers #rubyのversionに合ったコンテナ
+        environment:
+          - BUNDLER_VERSION: 2.1.4 # これがないとbundle installできない
+          - RAILS_ENV: 'test'
+          - DB_HOST: 127.0.0.1
+      - image: circleci/mysql:5.6.51
+        environment:
+          - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+          - MYSQL_USER: root
+          - MYSQL_DB: my_lists_test # testのDB名指定
+    working_directory: ~/my_list
+    steps:
+      # CI環境上の working_directory の値の場所にGitリポジトリをコピーする。
+      - checkout
 
-   working_directory: ~/my_list
+      # dockerコンテナの立ち上げを待つ(これ不要かも…？？？）
+      - run:
+          name: wait for database
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 5m
 
+      # キャッシュがあれば、リストアする。テスト時間の短縮につながる。keysでリストアするキャッシュを複数指定
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
 
-   steps:
-   - checkout
+      # Bundle install dependencies
+      - run:
+          name: Install dependencies
+          command: |
+            gem install bundler -v 2.1.4
+            bundle install --path=vendor/bundle --jobs 4 --retry 3
 
-   - restore_cache:
-       keys:
-       - v1-dependencies-{{ checksum "Gemfile.lock" }}
-       - v1-dependencies-
+      # キャッシュする
+      - save_cache:
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
-   - run:
-       name: install dependencies
-       command: |
-         gem install bundler -v 2.1.4
-         bundle install --jobs=4 --retry=3 --path vendor/bundle
+      # DBのセットアップ
+      - run:
+          name: Database Setup
+          command: |
+            bundle exec rake db:create
+            bundle exec rake db:schema:load
 
-   - save_cache:
-       paths:
-       - ./vendor/bundle
-       key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      # RSpecを実行
+      - run:
+          name: Run rspec
+          command: |
+            bundle exec rspec --profile 10 \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
-   # Database setup
-   - run: mv ./config/database.yml.ci ./config/database.yml
-
-   # Database setup
-   - run:
-       name: DatabaseSetup
-       command: |
-          bundle exec rake db:create
-          bundle exec rake db:schema:load
-
-   - run:
-       name: Node バージョンの切り替え
-       command: |
-          set +e
-          wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-          nvm install v14.19.0
-          nvm alias default 14.19.0
-
-          echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
-          echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-
-   # yarn install
-   - run:
-       name: yarn Install
-       command: yarn install
-
-
-  #  - run: bundle exec bin/webpack
-
-   # run tests!
-   - run:
-       name: RSpec 並列処理
-       command: |
-         mkdir /tmp/test-results
-         TEST_FILES="$(circleci tests glob "**/spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-
-         bundle exec rspec --format progress \
-                         --out /tmp/test-results/rspec.xml \
-                         --format progress \
-                         $TEST_FILES
+      # Save artifacts
+      - store_test_results:
+          path: /tmp/test-results
