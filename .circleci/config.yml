@@ -11,13 +11,7 @@ jobs:
       environment:
         - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
         - MYSQL_ROOT_HOST: '127.0.0.1'
-
-    working_directory: ~/my_list
-
-
-    steps:
-    - checkout
-
+        
     - run:
         name: Node バージョンの切り替え
         command: |
@@ -28,6 +22,14 @@ jobs:
           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
           nvm install v14.19.0
           nvm alias default 14.19.0
+
+    working_directory: ~/my_list
+
+
+    steps:
+    - checkout
+
+
 
     - restore_cache:
         keys:
