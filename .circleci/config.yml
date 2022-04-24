@@ -1,8 +1,77 @@
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.5
+    - image: circleci/ruby:2.6.5-node-browsers
+      environment:
+        - BUNDLER_VERSION: 2.1.4
+        - RAILS_ENV: 'test'
+        - TZ: "Japan"
+    - image: circleci/mysql:5.6.51
+      environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+        - MYSQL_ROOT_HOST: '127.0.0.1'
+    
+
+    working_directory: ~/my_list
+
+
     steps:
-      - checkout
-      - run: echo "hello world"
+    - checkout
+    
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - v1-dependencies-
+
+    - run:
+        name: install dependencies
+        command: |
+          gem install bundler -v 2.1.4
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+    - save_cache:
+        paths:
+        - ./vendor/bundle
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+    - restore_cache:
+        keys:
+          - rails-demo-yarn-{{ checksum "yarn.lock" }}
+          - rails-demo-yarn-
+    - run:
+        name: Yarnをinstall
+        command: |
+          set +e
+          wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+          nvm install v14.19.0
+          nvm use v14.19.0
+          yarn install --cache-folder ~/.cache/yarn
+
+    # Database setup
+    - run: mv ./config/database.yml.ci ./config/database.yml
+
+    # Database setup
+    - run:
+        name: Databasesetup
+        command: |
+           bundle exec rake db:create
+           bundle exec rake db:schema:load
+
+    # run tests!
+    - run:
+        name: Run rspec
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+            circleci tests split --split-by=timings)"
+
+          bundle exec rspec \
+            --format progress \
+            --format RspecJunitFormatter \
+            --out /tmp/test-results/rspec.xml \
+            --format progress \
+            $TEST_FILES
