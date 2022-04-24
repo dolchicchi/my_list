@@ -34,6 +34,14 @@ jobs:
         - ./vendor/bundle
         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
+    - restore_cache:
+        keys:
+          - rails-demo-yarn-{{ checksum "yarn.lock" }}
+          - rails-demo-yarn-
+    - run:
+        name: Yarnをinstall
+        command: yarn install --cache-folder ~/.cache/yarn
+
     # Database setup
     - run: mv ./config/database.yml.ci ./config/database.yml
 
