@@ -67,7 +67,7 @@ jobs:
           TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
             circleci tests split --split-by=timings)"
 
-          bundle exec rspec spec/folder_spec.rb \
+          bundle exec rspec spec/models/folder_spec.rb \
             --format progress \
             --format RspecJunitFormatter \
             --out /tmp/test-results/rspec.xml \
