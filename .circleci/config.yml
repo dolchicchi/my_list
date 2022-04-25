@@ -84,13 +84,46 @@ jobs:
         environment:
           BUNDLER_VERSION: 2.1.4
     steps:
-      - checkout
-      - ruby/install-deps
-      - add_ssh_keys:
-          fingerprints: "e5:2f:67:e3:ae:05:2f:0a:09:7a:b7:dd:7c:70:54:ad"
-      - deploy:
-          name: Capistrano deploy
-          command: bundle exec cap production deploy
+    - checkout
+
+    - restore_cache:
+            keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+
+    - run:
+        name: install dependencies
+        command: |
+          gem install bundler -v 2.1.4
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+    - save_cache:
+        paths:
+        - ./vendor/bundle
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+    - restore_cache:
+        keys:
+          - rails-demo-yarn-{{ checksum "yarn.lock" }}
+          - rails-demo-yarn-
+    - run:
+        name: Yarnをinstall
+        command: |
+          set +e
+          wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+          nvm install v14.19.0
+          nvm use v14.19.0
+          yarn install --cache-folder ~/.cache/yarn
+
+    - add_ssh_keys:
+        fingerprints: "e5:2f:67:e3:ae:05:2f:0a:09:7a:b7:dd:7c:70:54:ad"
+        
+    - deploy:
+        name: Capistrano deploy
+        command: bundle exec cap production deploy
 
 workflows:
   version: 2
