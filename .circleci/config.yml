@@ -12,13 +12,11 @@ jobs:
         - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
         - MYSQL_ROOT_HOST: '127.0.0.1'
     
-
     working_directory: ~/my_list
-
 
     steps:
     - checkout
-    
+
     - restore_cache:
         keys:
         - v1-dependencies-{{ checksum "Gemfile.lock" }}
