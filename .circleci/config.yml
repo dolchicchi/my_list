@@ -88,4 +88,13 @@ jobs:
           name: Capistrano deploy
           command: bundle exec cap production deploy
 
+workflows:
+  version: 2.1
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+
 
