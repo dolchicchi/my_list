@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Ingredients", type: :system do
+RSpec.describe 'Ingredients', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @recipe = FactoryBot.create(:recipe, user_id: @user.id)
@@ -26,9 +26,9 @@ RSpec.describe "Ingredients", type: :system do
       fill_in '分量', with: another_ingredient.amount
       select 'コ', from: '[recipe_ingredient][unit_id][]'
       # 登録を押すとIngredientモデルのカウントが1上がる
-      expect{
+      expect do
         click_on('登録')
-      }.to change{Ingredient.count}.by(1)
+      end.to change { Ingredient.count }.by(1)
       # レシピ一覧表示のページに戻っている
       expect(current_path).to eq recipes_path
     end
@@ -49,9 +49,9 @@ RSpec.describe "Ingredients", type: :system do
       fill_in '食材名', with: ''
       fill_in '分量', with: ''
       # 登録を押してもIngredientモデルのカウントが上がらない
-      expect{
+      expect  do
         click_on('登録')
-      }.to change{Ingredient.count}.by(0)
+      end.to change { Ingredient.count }.by(0)
       # レシピ一覧表示のページに戻っている
       expect(current_path).to eq recipe_ingredients_path(@recipe)
     end
@@ -83,9 +83,9 @@ RSpec.describe "Ingredients", type: :system do
       fill_in '食材名', with: "#{@ingredient.name}編集"
       fill_in '分量', with: @ingredient.amount + 1
       # 追加ボタンを押してもIngredientモデルのカウントは上がらない
-      expect{
+      expect  do
         click_on('修正')
-      }.to change{Ingredient.count}.by(0)
+      end.to change { Ingredient.count }.by(0)
       # レシピ一覧ページに遷移している
       expect(current_path).to eq recipes_path
     end

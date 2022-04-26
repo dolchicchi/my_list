@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Folders", type: :system do
+RSpec.describe 'Folders', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @recipe = FactoryBot.create(:recipe, user_id: @user.id)
@@ -20,12 +20,12 @@ RSpec.describe "Folders", type: :system do
       expect(page).to have_link('フォルダの新規作成')
       # フォルダの新規作成ページへ移動する
       visit new_folder_path
-      # 情報を入力する 
+      # 情報を入力する
       fill_in 'タイトル(必須)', with: @folder.title
       # 登録ボタンを押すとForderのカウントが１上がる
-      expect{
+      expect  do
         click_on('登録')
-      }.to change{Folder.count}.by(1)
+      end.to change { Folder.count }.by(1)
       # 一覧表示ページに遷移している
       expect(current_path).to eq folders_path
     end
@@ -42,12 +42,12 @@ RSpec.describe "Folders", type: :system do
       expect(page).to have_link('フォルダの新規作成')
       # フォルダの新規作成ページへ移動する
       visit new_folder_path
-      # 情報を入力する 
+      # 情報を入力する
       fill_in 'タイトル(必須)', with: ''
       # 登録ボタンを押してもForderのカウントは上がらない
-      expect{
+      expect  do
         click_on('登録')
-      }.to change{Folder.count}.by(0)
+      end.to change { Folder.count }.by(0)
       # 新規作成画面へリダイレクトしている
       expect(current_path).to eq folders_path
     end
@@ -87,9 +87,9 @@ RSpec.describe "Folders", type: :system do
       # フォルダ名を変更する
       fill_in 'タイトル', with: "#{@folder.title}編集"
       # 登録してもFolderモデルのカウントは上がらない
-      expect{
+      expect  do
         click_on('登録')
-      }.to change{Folder.count}.by(0)
+      end.to change { Folder.count }.by(0)
       # 一覧表示ページにリダイレクトしている
       expect(current_path).to eq folders_path
       # 変更したフォルダ名が表示されている
@@ -117,14 +117,14 @@ RSpec.describe "Folders", type: :system do
       # フォルダ名を変更する
       fill_in 'タイトル', with: ''
       # 登録してもFolderモデルのカウントは上がらない
-      expect{
+      expect  do
         click_on('登録')
-      }.to change{Folder.count}.by(0)
+      end.to change { Folder.count }.by(0)
       # リダイレクトされている
       expect(current_path).to eq folder_path(@folder)
     end
   end
-  
+
   context 'フォルダの削除ができる' do
     it '一覧表示ページからフォルダを削除できる' do
       # ログインする
@@ -159,7 +159,7 @@ RSpec.describe "Folders", type: :system do
       # レシピの追加ページに移動する
       visit add_recipe_select_folder_path(@folder)
       # レシピ名が表示されている
-      expect(page).to have_content(@recipe.title) 
+      expect(page).to have_content(@recipe.title)
       # レシピを選択する
       check @recipe.title
       # 追加ボタンを押す
@@ -183,7 +183,7 @@ RSpec.describe "Folders", type: :system do
       # レシピの追加ページに移動する
       visit add_recipe_select_folder_path(@folder)
       # レシピ名が表示されている
-      expect(page).to have_content(@recipe.title) 
+      expect(page).to have_content(@recipe.title)
       # 追加ボタンを押す
       click_on('追加')
       # 追加ページに留まっている
@@ -253,9 +253,9 @@ RSpec.describe "Folders", type: :system do
       # 日付を選択する
       find('input[name="date"]').set(Date.today)
       # 献立へ追加ボタンをクリックするとListカウントが１上がる
-      expect{
+      expect do
         click_on('献立へ追加')
-      }.to change{List.count}.by(1)
+      end.to change { List.count }.by(1)
       # トップページに遷移している
       expect(current_path).to eq lists_path
     end
@@ -278,9 +278,9 @@ RSpec.describe "Folders", type: :system do
       # 日付を選択する
       find('input[name="date"]').set(Date.today)
       # 献立へ追加ボタンをクリックしてもカウントは上がらない
-      expect{
+      expect do
         click_on('献立へ追加')
-      }.to change{List.count}.by(0)
+      end.to change { List.count }.by(0)
       # 詳細ページにいる
       expect(current_path).to eq folder_path(@folder)
     end
@@ -301,9 +301,9 @@ RSpec.describe "Folders", type: :system do
       # レシピを選択する
       choose another_recipe.title
       # 献立へ追加ボタンをクリックしてもカウントは上がらない
-      expect{
+      expect do
         click_on('献立へ追加')
-      }.to change{List.count}.by(0)
+      end.to change { List.count }.by(0)
       # 詳細ページにいる
       expect(current_path).to eq folder_path(@folder)
     end

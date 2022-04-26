@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit, :update, :destroy, :folder_out, :user_check]
-  before_action :user_check, only: [:edit, :update, :delete]
-  before_action :user_folder_set, only: [:new, :edit]
+  before_action :set_recipe, only: %i[edit update destroy folder_out user_check]
+  before_action :user_check, only: %i[edit update delete]
+  before_action :user_folder_set, only: %i[new edit]
   before_action :no_select_check, only: :folder_in
 
   def new
@@ -13,10 +13,10 @@ class RecipesController < ApplicationController
     recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
     if recipe_ingredient.valid?
       recipe_ingredient.save
-      flash[:message] = "登録しました"
+      flash[:message] = '登録しました'
       redirect_to new_recipe_path
     else
-      flash[:danger] = "タイトルを入力して下さい"
+      flash[:danger] = 'タイトルを入力して下さい'
       redirect_to new_recipe_path
     end
   end
@@ -30,19 +30,19 @@ class RecipesController < ApplicationController
   def edit
   end
 
-  def update 
+  def update
     if @recipe.update(recipe_params)
       redirect_to recipes_path
     else
       user_folder_set
-      flash[:danger] = "タイトルを入力して下さい"
-      render :edit 
+      flash[:danger] = 'タイトルを入力して下さい'
+      render :edit
     end
   end
 
   def destroy
     @recipe.destroy
-    flash[:message] = "削除しました"
+    flash[:message] = '削除しました'
     redirect_to recipes_path
   end
 
@@ -53,7 +53,7 @@ class RecipesController < ApplicationController
       recipe = Recipe.find(recipe_id)
       recipe.update(folder_id: params[:id])
     end
-    flash[:message] = "追加しました"
+    flash[:message] = '追加しました'
     redirect_to folder_path(params[:id])
   end
 
@@ -66,6 +66,7 @@ class RecipesController < ApplicationController
   end
 
   private
+
   def recipe_ingredient_params
     params.require(:recipe_ingredient).permit(
       :title, :source, :folder_id,
@@ -86,9 +87,7 @@ class RecipesController < ApplicationController
   end
 
   def user_check
-    unless current_user.id == @recipe.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user.id == @recipe.user_id
   end
 
   def user_folder_set
@@ -98,7 +97,7 @@ class RecipesController < ApplicationController
   # 追加レシピが選択されていない場合はリダイレクトする
   def no_select_check
     if params[:folder].blank?
-      flash[:danger] = "レシピを選択して下さい"
+      flash[:danger] = 'レシピを選択して下さい'
       redirect_to add_recipe_select_folder_path(params[:id])
     end
   end
@@ -112,13 +111,13 @@ class RecipesController < ApplicationController
   def last_dates
     @last_dates = {}
     @recipes.each do |recipe|
-      last_data = recipe.lists.select{|list| list.date < @today - 1}[0]
-      unless last_data.blank?
-        @last_dates[recipe.id] = "#{last_data.date.month}月#{last_data.date.day}日に作った！"
-      else
-        @last_dates[recipe.id] = "初挑戦！?"
-      end
+      last_data = recipe.lists.select { |list| list.date < @today - 1 }[0]
+      @last_dates[recipe.id] = if last_data.blank?
+                                 '初挑戦！?'
+                               else
+                                 "#{last_data.date.month}月#{last_data.date.day}日に作った！"
+                               end
     end
-    return @last_dates
+    @last_dates
   end
 end

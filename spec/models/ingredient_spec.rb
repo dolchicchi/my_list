@@ -29,12 +29,12 @@ RSpec.describe Ingredient, type: :model do
       it '分量に文字が含まれていると保存できないこと' do
         @ingredient.amount = Faker::Lorem.characters(number: 3, min_alpha: 1, min_numeric: 1)
         @ingredient.valid?
-        expect(@ingredient.errors.full_messages).to include("Amount is not a number")
+        expect(@ingredient.errors.full_messages).to include('Amount is not a number')
       end
       it 'unit_idが1だと保存できないこと' do
         @ingredient.unit_id = 1
         @ingredient.valid?
-        expect(@ingredient.errors.full_messages).to include("Unit must be other than 1")
+        expect(@ingredient.errors.full_messages).to include('Unit must be other than 1')
       end
     end
   end

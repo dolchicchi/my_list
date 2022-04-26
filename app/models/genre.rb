@@ -7,8 +7,7 @@ class Genre < ActiveHash::Base
     { id: 6, name: '麺' },
     { id: 4, name: 'その他' }
   ]
- 
-   include ActiveHash::Associations
-   has_many :recipes
- 
-  end
+
+  include ActiveHash::Associations
+  has_many :recipes
+end

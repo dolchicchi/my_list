@@ -13,25 +13,23 @@ class Recipe < ApplicationRecord
 
   def self.match_recipes(datas)
     hash = {}
-    datas.each{|key, value|
-      unless value.blank?
-        hash[key] = value
-      end
-    }
+    datas.each  do |key, value|
+      hash[key] = value unless value.blank?
+    end
     Recipe.where(hash)
   end
 
   def self.random(datas)
     recipes = Recipe.match_recipes(datas)
     num = rand(recipes.length) - 1
-    return recipes[num]
+    recipes[num]
   end
 
   def self.not_included_folder(current_user_id, params_id)
     Recipe.where(user_id: current_user_id).where.not(folder_id: params_id)
-    .or(
-    Recipe.where(user_id: current_user_id, folder_id: nil)
-    )
+          .or(
+            Recipe.where(user_id: current_user_id, folder_id: nil)
+          )
   end
 
   def self.weekly_recipes_data(weekly_datas)
@@ -39,6 +37,6 @@ class Recipe < ApplicationRecord
     weekly_datas.each do |day_data|
       weekly_recipes << day_data.recipe
     end
-    return weekly_recipes
+    weekly_recipes
   end
 end

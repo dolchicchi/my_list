@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Lists", type: :system do
+RSpec.describe 'Lists', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @list = FactoryBot.build(:list)
@@ -23,9 +23,9 @@ RSpec.describe "Lists", type: :system do
       # レシピを選択する
       choose @recipe.title
       # 登録ボタンを押すとListモデルのカウントが1上がる
-      expect{
+      expect do
         click_on('登録')
-      }.to change{List.count}.by(1)
+      end.to change { List.count }.by(1)
       # トップページに戻っている
       expect(current_path).to eq lists_path
       # 戻ったトップページに登録したレシピ名が表示されている
@@ -43,9 +43,9 @@ RSpec.describe "Lists", type: :system do
       # レシピ名が表示されている
       expect(page).to have_content(@recipe.title)
       # 登録ボタンを押してもListモデルのカウントは上がらない
-      expect{
+      expect do
         click_on('登録')
-      }.to change{List.count}.by(0)
+      end.to change { List.count }.by(0)
       # トップページに戻っている
       expect(current_path).to eq new_list_path
     end
@@ -92,9 +92,9 @@ RSpec.describe "Lists", type: :system do
       # 非表示だった一週間おまかせボタンが表示される
       expect(page).to have_button '一週間おまかせ'
       # おまかせボタンをクリックするとListテーブルのカウントが７上がる
-      expect{
+      expect do
         click_on('一週間おまかせ')
-      }.to change{List.count}.by(7)
+      end.to change { List.count }.by(7)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
       # レシピ名が表示されている
@@ -113,9 +113,9 @@ RSpec.describe "Lists", type: :system do
       # 非表示だった一週間おまかせボタンが表示される
       expect(page).to have_button '一週間おまかせ'
       # おまかせボタンをクリックしてもListテーブルのカウントは上がらない
-      expect{
+      expect do
         click_on('一週間おまかせ')
-      }.to change{List.count}.by(0)
+      end.to change { List.count }.by(0)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
     end
@@ -144,9 +144,9 @@ RSpec.describe "Lists", type: :system do
       expect(page).to have_no_content('一週間おまかせ')
       expect(page).to have_button 'おまかせ'
       # おまかせボタンをクリックするとListテーブルのカウントが１上がる
-      expect{
+      expect do
         find('input[name="commit"]').click
-      }.to change{List.count}.by(1)
+      end.to change { List.count }.by(1)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
       # レシピ名が存在する
@@ -169,9 +169,9 @@ RSpec.describe "Lists", type: :system do
       # 非表示だった取り消しボタンが表示される
       expect(page).to have_link '取り消し'
       # おまかせボタンをクリックするとListテーブルのカウントが７上がる
-      expect{
+      expect do
         click_on('一週間おまかせ')
-      }.to change{List.count}.by(7)
+      end.to change { List.count }.by(7)
       # トップページにリダイレクトしている
       expect(current_path).to eq root_path
       # レシピ名が表示されている
