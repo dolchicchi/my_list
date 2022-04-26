@@ -1,8 +1,5 @@
 version: 2
 
-orbs:
-  ruby: circleci/ruby@1.1.0
-
 jobs:
   build:
     docker:
@@ -134,5 +131,8 @@ workflows:
       - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only: master
 
 
