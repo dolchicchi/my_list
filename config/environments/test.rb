@@ -11,7 +11,7 @@ Rails.application.configure do
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
-  
+
   config.cache_classes = false
 
   # Do not eager load code on boot. This avoids loading your whole application

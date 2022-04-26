@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
-  before_action :set_folder, except: [:new, :create, :index]
+  before_action :set_folder, except: %i[new create index]
   before_action :no_select_check, only: :add_recipe
-  before_action :user_match?, only: [:show, :edit, :add_recipe_select]
+  before_action :user_match?, only: %i[show edit add_recipe_select]
 
   def new
     @folder = Folder.new
@@ -12,7 +12,7 @@ class FoldersController < ApplicationController
     if folder.save
       redirect_to folders_path
     else
-      flash[:danger] = "タイトルを入力して下さい"
+      flash[:danger] = 'タイトルを入力して下さい'
       render :new
     end
   end
@@ -33,7 +33,7 @@ class FoldersController < ApplicationController
     if @folder.update(folder_params)
       redirect_to folders_path
     else
-      flash[:danger] = "タイトルを入力して下さい"
+      flash[:danger] = 'タイトルを入力して下さい'
       render :edit
     end
   end
@@ -47,8 +47,9 @@ class FoldersController < ApplicationController
     recipes = Recipe.not_included_folder(current_user.id, @folder.id)
     @choice_recipes = search_hit_recipe(recipes)
   end
-  
+
   private
+
   def set_folder
     @folder = Folder.find(params[:id])
   end
@@ -65,8 +66,6 @@ class FoldersController < ApplicationController
 
   def user_match?
     folder = Folder.find(params[:id])
-    unless current_user.id == folder.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user.id == folder.user_id
   end
 end

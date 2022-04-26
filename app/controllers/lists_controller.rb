@@ -1,8 +1,8 @@
 class ListsController < ApplicationController
-  before_action :set_user_lists, only: [:new, :index, :weekly_destroy]
-  before_action :set_user_recipes, only: [:new, :index]
-  before_action :last_dates,  only: [:new, :index]
-  before_action :new_list, only: [:new, :index]
+  before_action :set_user_lists, only: %i[new index weekly_destroy]
+  before_action :set_user_recipes, only: %i[new index]
+  before_action :last_dates, only: %i[new index]
+  before_action :new_list, only: %i[new index]
 
   def new
     @date = params[:date]
@@ -10,7 +10,7 @@ class ListsController < ApplicationController
   end
 
   def index
-    @wdays = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"]
+    @wdays = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)']
   end
 
   def create
@@ -20,7 +20,7 @@ class ListsController < ApplicationController
     elsif params[:folder_id].present? || params[:date].blank?
       redirect_to folder_path(params[:folder_id])
     else
-      flash[:danger] = "レシピを選択して下さい"
+      flash[:danger] = 'レシピを選択して下さい'
       redirect_to new_list_path(date: params[:date])
     end
   end
@@ -42,7 +42,7 @@ class ListsController < ApplicationController
         list.save
       end
     else
-      flash[:danger] = "レシピ登録を一件以上して下さい"
+      flash[:danger] = 'レシピ登録を一件以上して下さい'
       redirect_to root_path
       return
     end
@@ -58,6 +58,7 @@ class ListsController < ApplicationController
   end
 
   private
+
   def new_list
     @list = List.new
   end
@@ -91,31 +92,31 @@ class ListsController < ApplicationController
   # 日付の情報がない場合は当日の日付を入れる
   def random_choice_recipe
     recipe = Recipe.random(select_category_params)
-    
+
     if recipe.present? && params[:list][:date].present?
-      return {
+      {
         recipe_id: recipe.id, user_id: current_user.id,
         date: params[:list][:date]
       }
     elsif recipe.present? && params[:list][:date].blank?
-      return {
+      {
         recipe_id: recipe.id, user_id: current_user.id,
         date: @today
       }
     end
   end
-  
+
   # ユーザーのレシピごとに献立に登録された最終日付を取得
   def last_dates
     @last_dates = {}
     @recipes.each do |recipe|
-     last_data = recipe.lists.select{|list| list.date < @today - 1}[0]
-      unless last_data.blank?
-        @last_dates[recipe.id] = "#{last_data.date.month}月#{last_data.date.day}日に作った！"
-      else
-        @last_dates[recipe.id] = "初挑戦！?"
-      end
+      last_data = recipe.lists.select { |list| list.date < @today - 1 }[0]
+      @last_dates[recipe.id] = if last_data.blank?
+                                 '初挑戦！?'
+                               else
+                                 "#{last_data.date.month}月#{last_data.date.day}日に作った！"
+                               end
     end
-    return @last_dates
+    @last_dates
   end
 end

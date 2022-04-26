@@ -5,7 +5,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     @user = FactoryBot.build(:user)
     sleep 0.02
   end
-  context 'ユーザー新規登録ができるとき' do 
+  context 'ユーザー新規登録ができるとき' do
     it '正しい情報を入力すればユーザー新規登録ができてトップページに移動する' do
       # トップページに移動する
       visit root_path
@@ -14,16 +14,16 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 新規登録ボタンが存在する
       expect(page).to have_content('新規登録')
       # 新規登録ページへ移動する
-      visit  new_user_registration_path
+      visit new_user_registration_path
       # ユーザー情報を入力する
       fill_in 'ニックネーム', with: @user.nickname
       fill_in 'メールアドレス', with: @user.email
       fill_in 'パスワード', with: @user.password
       fill_in 'パスワード(確認用)', with: @user.password
       # 登録ボタンを押すとユーザーモデルのカウントが1上がる
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change{User.count}.by(1)
+      end.to change { User.count }.by(1)
       # トップページへ遷移したことを確認する
       expect(current_path).to eq(root_path)
       # ログアウトボタンが表示されている
@@ -42,22 +42,22 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 新規登録ボタンが存在する
       expect(page).to have_content('新規登録')
       # 新規登録ページへ移動する
-      visit  new_user_registration_path
+      visit new_user_registration_path
       # 誤ったユーザー情報を入力する
       fill_in 'ニックネーム', with: ''
       fill_in 'メールアドレス', with: ''
       fill_in 'パスワード', with: ''
       fill_in 'パスワード(確認用)', with: ''
       # 登録ボタンを押すとユーザーモデルのカウントは上がらない
-      expect{
+      expect  do
         find('input[name="commit"]').click
-      }.to change{User.count}.by(0)
+      end.to change { User.count }.by(0)
       # 新規登録ページへ戻される
       expect(current_path).to eq(user_registration_path)
     end
   end
 
-    context 'ユーザーログインができるとき' do 
+  context 'ユーザーログインができるとき' do
     it '正しい情報を入力すればログインできてトップページに移動する' do
       user = FactoryBot.create(:user)
       # トップページに移動する

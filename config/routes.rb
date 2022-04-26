@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "lists#index"
+  root to: 'lists#index'
   resources :recipes, except: :show do
     resources :ingredients, only: [:new, :create, :edit, :update, :destroy]
 
@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
   resources :lists, only: [:new, :index, :create, :destroy] do
     collection do
-      post "random"
-      delete "weekly_destroy"
+      post 'random'
+      delete 'weekly_destroy'
     end
   end
 
@@ -22,8 +22,5 @@ Rails.application.routes.draw do
     member do
       get 'add_recipe_select'
     end
-
-
   end
-
 end

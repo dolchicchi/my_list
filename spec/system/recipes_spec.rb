@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe "Recipes", type: :system do
+RSpec.describe 'Recipes', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @recipe = FactoryBot.create(:recipe, user_id: @user.id)
     @ingredient = FactoryBot.create(:ingredient, recipe_id: @recipe.id)
     @recipe_ingredient = FactoryBot.build(:recipe_ingredient, user_id: @user.id)
-    @folder = FactoryBot.create(:folder,user_id: @user.id)
+    @folder = FactoryBot.create(:folder, user_id: @user.id)
     sleep 0.02
   end
 
-  context 'レシピ登録ができるとき' do 
+  context 'レシピ登録ができるとき' do
     it '正しい情報を入力すればレシピと食材が登録できてレシピ登録画面に移動する' do
       # ログインする
       sign_in(@user)
@@ -28,14 +28,14 @@ RSpec.describe "Recipes", type: :system do
       fill_in '分量(任意)', with: @recipe_ingredient.amount
       select 'コ', from: '[recipe_ingredient][unit_id][]'
       # 登録するとRecipeモデルとIngredientのカウントが１上がる
-      expect{
+      expect do
         find('input[name="commit"]').click
-      }.to change{Recipe.count}.by(1).and change {Ingredient.count}.by(1)
+      end.to change { Recipe.count }.by(1).and change { Ingredient.count }.by(1)
       # 再びレシピ登録ページに戻っている
       expect(current_path).to eq new_recipe_path
     end
   end
-  context 'レシピ登録ができない' do 
+  context 'レシピ登録ができない' do
     it '正しい情報を入力すれば新規登録ができてトップページに移動する' do
       # ログインする
       sign_in(@user)
@@ -50,15 +50,15 @@ RSpec.describe "Recipes", type: :system do
       fill_in '分量(任意)', with: ''
       select 'コ', from: '[recipe_ingredient][unit_id][]'
       # 登録してもRecipeモデルとIngredientのカウントは上がらない
-      expect{
+      expect do
         find('input[name="commit"]').click
-      }.to change{Recipe.count}.by(0).and change {Ingredient.count}.by(0)
+      end.to change { Recipe.count }.by(0).and change { Ingredient.count }.by(0)
       # 再びレシピ登録ページに戻っている
       expect(current_path).to eq new_recipe_path
     end
   end
 
-  context 'レシピ一覧表示にできる' do 
+  context 'レシピ一覧表示にできる' do
     it 'レシピ一覧表示にアクセスすると登録済みのレシピ情報が表示される' do
       # ログインする
       sign_in(@user)
@@ -76,7 +76,7 @@ RSpec.describe "Recipes", type: :system do
       expect(page).to have_content(@ingredient.amount.to_i).or have_content(@ingredient.amount)
     end
   end
-  context 'レシピ一覧表示にアクセスできない' do 
+  context 'レシピ一覧表示にアクセスできない' do
     it 'ログアウト状態だとログイン画面へ遷移する' do
       # レシピ一覧表示へ移動する
       visit recipes_path
@@ -85,7 +85,7 @@ RSpec.describe "Recipes", type: :system do
     end
   end
 
-  context 'レシピの編集ができるとき' do 
+  context 'レシピの編集ができるとき' do
     it '編集画面から正しい情報を入力する' do
       # ログインする
       sign_in(@user)
@@ -95,7 +95,7 @@ RSpec.describe "Recipes", type: :system do
       visit recipes_path
       # 編集ボタンがある
       expect(page).to have_content('編集')
-      # 編集ページへ移動する 
+      # 編集ページへ移動する
       visit edit_recipe_path(@recipe)
       # レシピのタイトルが存在する
       expect(
@@ -111,9 +111,9 @@ RSpec.describe "Recipes", type: :system do
       fill_in 'タイトル', with: "#{@recipe.title}+編集"
       fill_in '参考URL(任意)', with: "#{@recipe.source}+編集"
       # 登録してもRecipeモデルのカウントは上がらない
-      expect{
+      expect  do
         click_on('登録')
-      }.to change{Recipe.count}.by(0)
+      end.to change { Recipe.count }.by(0)
       # レシピ一覧ページに戻っていることを確認する
       expect(current_path).to eq recipes_path
       # 表示されているレシピのタイトルが変更されている
@@ -145,7 +145,7 @@ RSpec.describe "Recipes", type: :system do
     end
   end
 
-  context 'レシピの削除ができる' do 
+  context 'レシピの削除ができる' do
     it 'レシピ一覧表示から削除ボタンを押す' do
       # ログインする
       sign_in(@user)
