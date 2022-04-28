@@ -40,6 +40,12 @@
       <%= link_to '今週の献立に戻る', root_path, local: true, class: "top_btn" %>
     <% end %>
     <footer>
+      <nav class="footer-nav">
+        <ul class="footer-btns">
+          <li class="footer-btn"><%= link_to '利用規約', terms_lists_path, local: true %></li>
+          <li class="footer-btn"><%= link_to 'プライバシーポリシー', privacy_policy_lists_path, local: true %></li>
+        </ul>
+      </nav>
     </footer>
   </body>
 </html>
