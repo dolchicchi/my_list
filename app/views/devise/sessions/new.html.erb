@@ -1,6 +1,6 @@
 <div class="user-main">
   <div class="user-form">
-    <div class="user-postit">
+    <div class="user-postit login-user-postit">
       <div class="user-title">ログイン</div>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %> 
         <%= render "devise/shared/error_messages", resource: resource %>
