@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     collection do
       post 'random'
       delete 'weekly_destroy'
+      get 'terms'
+      get 'privacy_policy'
     end
   end
 

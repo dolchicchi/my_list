@@ -26,6 +26,7 @@ header {
   align-items: center;
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 3px 0 rgba(0,0,0,.22);
 }
 
 .header-title {
@@ -59,8 +60,15 @@ header {
 }
 
 .flash {
-  margin-top: 64px;
+  margin-top: 61px;
+  -webkit-animation: fade-in-out 3s ease 2s forwards;
+  animation: fade-in-out 3s ease 0s forwards;
+}
 
+@-webkit-keyframes fade-in-out {
+  0% {visibility: visible; opacity: 1;}
+  85% {visibility: visible; opacity: 1;}
+  100% {visibility: hidden; opacity: 0;}
 }
 
 .flash-message {
@@ -100,6 +108,8 @@ main{
   transition: 0.2s;
   border: none;
   font-size: 23px;
+  border-radius: 4px;
+  box-shadow: 0 0 3px 0 rgba(0,0,0,.22);
 }
 
 .pull-down-button:hover {
@@ -127,6 +137,7 @@ main{
   justify-content: center;
   padding: 30px 0;
   transition: 0.3s;
+  box-shadow: 0 2px 3px rgba(0,0,0,.22);
 }
 
 .random-menu-row {
@@ -248,12 +259,13 @@ main{
   background: #908a60;
   text-align: center;
   border-radius: 4px;
-  bottom: 50px;
+  bottom: 60px;
   left: -3px;
   position: fixed;
   padding: 15px;
   color: #fff6e6;
   text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.32);
 }
 
 .category-name {
@@ -482,7 +494,7 @@ main{
 
 .search-text {
   width: 60vw;
-  min-width: 320px;
+  min-width: 260px;
   max-width: 540px;
 }
 
@@ -696,9 +708,90 @@ main{
 /* フッター */
 
 footer {
-  height: 50px;
-  background-color: rgba(0, 0, 0, 0.1);
+  height: 60px;
+  /* background-color: rgba(0, 0, 0, 0.1); */
   margin-top: 50px;
+  background-color: #fff6e6;
+  box-shadow: 3px 0 0 0 rgba(0,0,0,.22);
+}
+
+.footer-nav {
+  padding: 8px 0 0 30px;
+}
+
+.footer-btns {
+  list-style: disc;
+}
+
+.footer-btn {
+  margin: 5px 0;
+  color: rgb(26, 181, 83);
+}
+
+.footer-btn a{
+  color: rgb(26, 181, 83);
+}
+
+.terms {
+  position: relative;
+}
+
+.terms-title {
+  font-family: sans-serif;
+}
+
+.terms * {
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.terms h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.terms ol {
+  padding-left: 40px;
+  list-style: decimal;
+}
+
+.terms p {
+  padding-left: 30px;
+}
+
+.tr {
+  position: absolute;
+  bottom: -20px;
+  right: 20px;
+}
+
+.privacy_policy {
+  position: relative;
+}
+
+.privacy-policy-title {
+  font-family: sans-serif;
+}
+
+.privacy_policy * {
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.privacy_policy h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.privacy_policy ol {
+  padding-left: 40px;
+  list-style: decimal;
+}
+
+.privacy_policy p {
+  padding-left: 30px;
 }
 
 /* タブレット対応 */
@@ -740,6 +833,24 @@ footer {
 
   .hedder-btn a{
     font-size: 12px;
+  }
+
+  .login-user-postit {
+    height: 420px;
+  }
+
+  .guest-login {
+    height: 40px;
+    position: absolute;
+    bottom: 35px;
+  }
+
+  .actions input {
+    height: 40px;
+  }
+
+  .pull-down-button {
+    width: 247px;
   }
 
   .postit {
