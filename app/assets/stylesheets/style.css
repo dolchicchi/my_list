@@ -839,6 +839,10 @@ footer {
     font-size: 12px;
   }
 
+  .btn input {
+    margin: 0 5px;
+  }
+
   .login-user-postit {
     height: 420px;
   }
