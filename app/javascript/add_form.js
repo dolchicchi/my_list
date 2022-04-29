@@ -10,7 +10,7 @@ function addForm (){
 
         <div class="ingredient-amount">
           <label for="recipe_ingredient_amount">分量</label>
-          <input name="[recipe_ingredient][amount][]" type="text"  />
+          <input name="[recipe_ingredient][amount][]" placeholder="数字のみ入力可" type="text"  />
         </div>
 
         <div class="ingredient-unit">
