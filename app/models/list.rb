@@ -5,6 +5,6 @@ class List < ApplicationRecord
   validates :date, presence: true
 
   def self.weekly_lists(current_user_id)
-    List.where(user_id: current_user_id, date: Date.today..Date.today + 7)
+    List.where(user_id: current_user_id, date: Date.today..Date.today + 6)
   end
 end

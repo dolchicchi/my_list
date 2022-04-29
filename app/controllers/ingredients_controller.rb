@@ -11,7 +11,6 @@ class IngredientsController < ApplicationController
     ingredient_create_data_ary.each do |ingredient_data|
       ingredient = Ingredient.new(ingredient_data)
       next if ingredient.save
-
       flash[:danger] = '正しく入力して下さい'
       render :new
       return
