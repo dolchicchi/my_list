@@ -10,6 +10,8 @@ function  colorChange(){
       element.classList.add('blue');
     }else if (element.textContent === 'スープ'){
       element.classList.add('yellow');
+    }else if (element.textContent === 'サラダ'){
+      element.classList.add('green');
     };
     
   });

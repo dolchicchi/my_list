@@ -21,7 +21,7 @@
             </div>
           <% end %>
         </div>
-        <div>カテゴリーの選択</div>
+        <div class="category-select">カテゴリーの選択</div>
         <div class="recipe-category">
           <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-list"}) %>
           <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-list"}) %>

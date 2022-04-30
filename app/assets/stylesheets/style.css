@@ -287,6 +287,10 @@ main{
   background-color: #c5c234;
 }
 
+.green {
+  background-color: rgb(90, 182, 105);
+}
+
 /* ユーザー機能フォーム周り */
 
 .user-main{
@@ -408,6 +412,10 @@ main{
 }
 
 .ingredient input {
+  text-align: center;
+}
+
+.category-select {
   text-align: center;
 }
 
