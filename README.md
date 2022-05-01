@@ -31,6 +31,6 @@ http://13.231.2.50/
 ## 画面遷移図
 ![](app/assets/images/screen.svg)
 ## インフラ構成図
-![](app/assets/images/cloud.svg)
+![](app/assets/images/cloud.drawio.svg)
 ## 洗い出した要件
 [要件を定義したシート](https://docs.google.com/spreadsheets/d/1Xa4weDya6gjDapaA8AAZ059wmQDttAZkOyN81plyQFM/edit#gid=982722306)
